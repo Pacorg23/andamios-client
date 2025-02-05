@@ -1,0 +1,28 @@
+@if(isSection){
+<div class="contenedor">
+  <div class="title-container">
+    <h1 class="title title-decoration">{{title}}</h1>
+  </div>
+  <section class="contenido">
+    <div class="img-principal">
+      <img src="assets/solucion/banner.png" alt="">
+    </div>
+    <div class="description-container" [innerHTML]="sanitizedHtml"></div>
+  </section>
+
+  <section class="grid">
+    <img src="assets/solucion/1.jpg" alt="">
+    <img src="assets/solucion/2.jpg" alt="">
+    <img src="assets/solucion/3.jpg" alt="">
+  </section>
+
+  <section class="opciones">
+    <button class="main-button"> Solicitar cotizacion </button>
+    <button class="main-button"> Descargar ficha tecnica </button>
+  </section>
+</div>
+} @else if(isSubsection){
+<div class="contenedor">
+  <h1>Subsection</h1>
+</div>
+}

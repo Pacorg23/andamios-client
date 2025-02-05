@@ -34,3 +34,34 @@ body {
   cursor: default;
   overflow-x: hidden;
  }
+
+.title-container{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 20px 0px 20px 0px;
+}
+
+.title-decoration{
+  border-bottom: 5px solid var(--color-primario);
+  padding-bottom: 15px;
+}
+
+/* Estilos para botones andamios, grandes */
+.main-button{
+  width: 300px;
+  background-color: none;
+  padding: 15px 0px;
+  border-radius: 15px;
+  background-color: transparent;
+  color: var(--color-primario);
+  outline: none;
+  border-color: var(--color-primario);
+  font-size: 20px;
+ }
+
+
+.main-button:hover{
+  background-color: var(--color-primario);
+  color: white;
+}
