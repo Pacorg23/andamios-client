@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarAndamiosComponent } from './componentes/navbar-andamios/navbar-andamios.component';
 import { FooterComponent } from './componentes/footer/footer.component';

@@ -1,12 +1,12 @@
 <div class="contenedor" [@fadeIn]>
 
   @switch (categoria?.tipo) {
-  @case ('A') {
+  @case ('A') { <!--MODELO CLASICO GRID SECCION Y SUBSECCIONES-->
   <h1>{{categoria?.nombre}}</h1>
   <div class="contenido">
     <div class="grid">
       @for (seccion of secciones; track seccion) {
-      <a href="seccion/{{seccion.url}}" class="item">
+      <a href="andamios/contenido/seccion/{{seccion.url}}" class="item">
         <img [src]="seccion.imagen_inicio" alt="">
         <p>{{seccion.nombre}}</p>
       </a>

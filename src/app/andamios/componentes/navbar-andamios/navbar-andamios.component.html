@@ -21,11 +21,11 @@
           <div class="secciones">
             @for (seccion of categoria.secciones; track seccion) {
             <div class="item-seccion">
-              <a href="/andamios/seccion/{{seccion.url}}"
-                routerLink="/andamios/seccion/{{seccion.url}}" routerLinkActive="active">{{seccion.titulo}}</a>
+              <a href="/andamios/contenido/seccion/{{seccion.url}}"
+                routerLink="/andamios/contenido/seccion/{{seccion.url}}" routerLinkActive="active">{{seccion.titulo}}</a>
               <div class="subsecciones">
                 @for (subseccion of seccion.subsecciones; track subseccion) {
-                <a class="item-subseccion" href="/andamios/subseccion/{{subseccion.url}}" routerLinkActive="active">{{subseccion.nombre}}</a>
+                <a class="item-subseccion" href="/andamios/contenido/subseccion/{{subseccion.url}}" routerLinkActive="active">{{subseccion.nombre}}</a>
                 }
               </div>
             </div>
@@ -37,10 +37,6 @@
 
     <div class="item-categoria">
       <a href="/andamios/sucursales" routerLink="/andamios/sucursales" routerLinkActive="active">Sucursales</a>
-    </div>
-
-    <div class="item-categoria">
-      <a href="/andamios/contacto" routerLink="/andamios/contacto" routerLinkActive="active">Contacto</a>
     </div>
   </div>
 
@@ -60,11 +56,7 @@
     }
 
     <div class="item-categoria">
-      <a href="/andamios/quienes-somos" (click)="toggleIcon()">Sucursales</a>
-    </div>
-
-    <div class="item-categoria">
-      <a href="/andamios/contacto" (click)="toggleIcon()">Contacto</a>
+      <a href="/andamios/sucursales" (click)="toggleIcon()">Sucursales</a>
     </div>
   </div>
 
