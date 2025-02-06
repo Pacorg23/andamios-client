@@ -1,0 +1,221 @@
+@if(comp.tipo>0){
+
+@switch (comp.tipo ) {
+@case (1) {
+@if(isSubSection){
+<div class="subseccion-type-A">
+  <button type="button" class="exit-button-type-A" (click)="goTo('')"> <mat-icon>keyboard_return</mat-icon> </button>
+  <div class="contenido-type-A">
+    <div class="title-type-A">
+      <h1>{{subSeccion.name}}</h1>
+    </div>
+    <div class="panel-type-A">
+      <div class="carousel-section-type-A">
+        <div id="carouselExampleAutoplaying" class="carousel-item-type-A slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            @for (slide of subSeccion.imgs; track slide ; let isFirst = $first) {
+            <div class="carousel-item-type-A" [class.active]="isFirst">
+              <img [src]="slide.img" class="d-block w-100" alt="...">
+            </div>
+            }
+          </div>
+          <button class="carousel-control-prev-type-A" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon-type-A" aria-hidden="true"></span>
+            <span class="visually-hidden-type-A">Previous</span>
+          </button>
+          <button class="carousel-control-next-type-A" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon-type-A" aria-hidden="true"></span>
+            <span class="visually-hidden-type-A">Next</span>
+          </button>
+        </div>
+      </div>
+      <div class="description-type-A">
+        <p [innerHTML]="safeDescription"></p>
+      </div>
+    </div>
+  </div>
+</div>
+} @else if (isSection){
+<div class="seccion-type-A">
+  <div class="seccion-titulo-type-A">
+    <h2>{{seccion.name}}</h2>
+  </div>
+  <div class="img-carrousel-type-A">
+    <div class="prev-type-A">
+      <button (click)="prevView(seccion.id)">
+        <mat-icon>keyboard_double_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div class="carousel-container-type-A">
+      <!-- CAROUSEL ELEMENT -->
+      <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
+        [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
+        <!-- SLIDES -->
+        @for(slide of seccion.subSecciones; track slide){
+        <swiper-slide>
+          <div class="element-type-A" [ngStyle]="{ height: height }" (click)="goTo(slide.name)">
+            <div class="img-container-type-A" [ngStyle]="{ height: imgHeight, width: imgWidth }">
+              <img [src]="slide.img" alt="slide.img" class="img-type-A">
+            </div>
+            <div class="content-type-A">
+              <p>{{slide.name}}</p>
+            </div>
+          </div>
+        </swiper-slide>
+        }
+        <!-- END SLIDES -->
+      </swiper-container>
+      <!-- END CAROUSEL ELEMENT -->
+    </div>
+    <div class="next-type-A">
+      <button (click)="nextView(seccion.id)">
+        <mat-icon>keyboard_double_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+}
+@else {
+<div class="contenido-type-A">
+  @for(seccion of secciones; track seccion){
+  <div class="seccion-type-A">
+    <div class="seccion-titulo-type-A">
+      <h2>{{seccion.name}}</h2>
+    </div>
+    <div class="img-carrousel-type-A">
+      <div class="prev-type-A">
+        <button (click)="prevView(seccion.id)">
+          <mat-icon>keyboard_double_arrow_left</mat-icon>
+        </button>
+      </div>
+      <div class="carousel-container-type-A">
+        <!-- CAROUSEL ELEMENT -->
+        <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
+          [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
+          <!-- SLIDES -->
+          @for(slide of seccion.subSecciones; track slide){
+          <swiper-slide>
+            <div class="element-type-A" [ngStyle]="{ height: height }" (click)="goTo(slide.name)">
+              <div class="img-container-type-A" [ngStyle]="{ height: imgHeight, width: imgWidth }">
+                <img [src]="slide.img" alt="slide.img" class="img-type-A">
+              </div>
+              <div class="content-type-A">
+                <p>{{slide.name}}</p>
+              </div>
+            </div>
+          </swiper-slide>
+          }
+          <!-- END SLIDES -->
+        </swiper-container>
+        <!-- END CAROUSEL ELEMENT -->
+      </div>
+      <div class="next-type-A">
+        <button (click)="nextView(seccion.id)">
+          <mat-icon>keyboard_double_arrow_right</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  }
+</div>
+}
+}
+@case (2) {
+@for (design of designs; track design) {
+<div class="item-type-B">
+  <div class="img-carrousel-type-B">
+    <div class="prev-type-B">
+      <button (click)="prevView(design.id)">
+        <mat-icon>keyboard_double_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div class="carousel-container-type-B">
+      <!-- CAROUSEL ELEMENT -->
+      <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
+        id="carousel-{{design.id}}">
+        <!-- SLIDES -->
+        @for(slide of design.imgs; track slide){
+        <swiper-slide>
+          <div class="img-container-type-B">
+            <img [src]="slide.img" alt="slide.img" class="img-type-B">
+          </div>
+        </swiper-slide>
+        }
+        <!-- END SLIDES -->
+      </swiper-container>
+      <!-- END CAROUSEL ELEMENT -->
+    </div>
+    <div class="next-type-B">
+      <button (click)="nextView(design.id)">
+        <mat-icon>keyboard_double_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="description-box-type-B">
+    <p [innerHTML]="design.description"></p>
+  </div>
+</div>
+}
+}
+@case (3) {
+<div class="products-type-C">
+  @for (item of items; track item) {
+  <div class="hoverable-container-type-C">
+    <img class="background-container-type-C" [src]="item.img" />
+    <div class="title-content-type-C">
+      <h1 class="title-type-C">{{item.title}}</h1>
+    </div>
+    <div class="hoverable-content-type-C">
+      <h1 class="hoverable-title-type-C">{{item.title}}</h1>
+      <div class="hoverable-description-type-C">
+        <p [innerHTML]="item.description"></p>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}
+@case (4) {
+  <div class="contenido-type-D">
+    <div class="prev-type-D" >
+      <button (click)="prevView()">
+        <mat-icon id="prev-type-D">keyboard_double_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div class="carousel-container-type-D">
+      <!-- CAROUSEL ELEMENT -->
+      <swiper-container autoplay="false" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
+        [ngStyle]="{ width: width }" id="carousel-type-D">
+        <!-- SLIDES -->
+        @for(slide of cerificaciones; track slide){
+        <swiper-slide>
+          <div class="element-type-D" [ngStyle]="{ height: height }">
+            <div class="description-container-type-D">
+              <p [innerHTML]="slide.description"></p>
+            </div>
+            <!--TODO Implement (click)=download(slide.doc)-->
+            <div class="img-container-type-D" [ngStyle]="{ height: imgHeight, width: imgWidth }">
+              <img [src]="slide.img" alt="slide.img" class="img">
+            </div>
+          </div>
+        </swiper-slide>
+        }
+        <!-- END SLIDES -->
+      </swiper-container>
+      <!-- END CAROUSEL ELEMENT -->
+    </div>
+    <div class="next-type-D" >
+      <button (click)="nextView()">
+        <mat-icon id="next-type-D">keyboard_double_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+}
+@default {
+<p>case n</p>
+}
+}
+}
