@@ -52,7 +52,7 @@ export class SucursalesComponent {
       });
       this.sucursales = data;
     }, err => {
-      console.log(err)
+      console.error(err)
     })
   }
 }

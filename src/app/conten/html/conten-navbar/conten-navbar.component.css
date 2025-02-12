@@ -214,6 +214,7 @@ a {
   #logo img {
     height: auto;
     width: 40px;
+    filter: brightness(0) invert(1);
   }
 
   .nav-item{
@@ -262,6 +263,7 @@ a {
   #logo img {
     height: auto;
     width: 40px;
+    filter: brightness(0) invert(1);
   }
 
   .nav-item{

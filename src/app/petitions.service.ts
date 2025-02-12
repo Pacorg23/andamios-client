@@ -72,4 +72,12 @@ export class PetitionsService {
     // Luego elimina espacios de los extremos
     return _.trim(replaced);
   }
+
+  readyToDownload(data: any, filename: string) {
+    const url = this.sanitizarPdf(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename || 'download.pdf';
+    a.click();
+  }
 }

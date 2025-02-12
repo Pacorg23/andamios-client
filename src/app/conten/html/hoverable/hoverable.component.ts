@@ -24,7 +24,6 @@ export class HoverableComponent {
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    console.log(this.item);
     this.sanitazedDescription = this.sanitizer.bypassSecurityTrustHtml(this.item.description);
   }
 

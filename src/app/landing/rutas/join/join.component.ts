@@ -30,8 +30,6 @@ export class JoinComponent {
 
   constructor(private fb:FormBuilder, private landingService: LandingService, private seo:SeoService) {
 
-    
-
     this.seo.setTitle('Unete al equipo')
     this.seo.setKeywords([
       'Unete al equipo',
@@ -68,7 +66,6 @@ export class JoinComponent {
 
       if (this.archivo.type === this.allowedType) { //Solo si es pdf lo deja pasar
         this.landingService.enviarFormulario(formData).subscribe(res => {
-          //console.log(res)
           //this.alerta = res
           this.formulario.reset();
           this.nombre = false

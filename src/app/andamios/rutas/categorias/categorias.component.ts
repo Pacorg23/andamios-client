@@ -75,8 +75,7 @@ export class CategoriasComponent {
             }
           })
 
-          this.secciones = data
-          //console.log(this.secciones)
+          this.secciones = data;
         })
 
         this.loading = false

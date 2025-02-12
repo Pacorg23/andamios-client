@@ -48,13 +48,15 @@
 
     @for (elemento of elementos; track elemento) {
     <section class="categoria">
+      @if(elemento.secciones.length > 0){
       <h1>{{elemento.titulo}}</h1>
+      }
       @if(elemento.banner){
-        <img id="banner" [src]="elemento.banner" alt="banner-categoria">
+      <img id="banner" [src]="elemento.banner" alt="banner-categoria">
       }
       <div class="secciones">
         @for (seccion of elemento.secciones; track seccion) {
-        <a href="seccion/{{seccion.url}}" class="item">
+        <a href="andamios/contenido/seccion/{{seccion.url}}" class="item">
           <img [src]="seccion.imagen_inicio" alt="">
           <h4>{{seccion.nombre}}</h4>
         </a>
@@ -74,7 +76,5 @@
 </div>
 
 @if(loading){
-  <app-spinner></app-spinner>
+<app-spinner></app-spinner>
 }
-
-

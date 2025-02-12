@@ -78,7 +78,6 @@ export class SliderComponent {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    console.log("slides", this.slides);
     if (this.slides.length > this.slidesPer) {
       this.loop = false; // Desactiva loop si no hay suficientes diapositivas
     }
