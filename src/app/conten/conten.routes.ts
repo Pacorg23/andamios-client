@@ -5,6 +5,7 @@ import { ManufcturaComponent } from './ws/manufctura/manufctura.component';
 import { IngenieriaComponent } from './ws/ingenieria/ingenieria.component';
 import { ProductosComponent } from './ws/productos/productos.component';
 import { CertificacionesComponent } from './ws/certificaciones/certificaciones.component';
+import { GeneralComponent } from "./ws/general/general.component";
 
 export const routes: Routes = [
     {
@@ -15,6 +16,7 @@ export const routes: Routes = [
             { path: 'manufactura/subseccion/:name', component: ManufcturaComponent },
             { path: 'ingenieria', component: IngenieriaComponent },
             { path: 'productos', component: ProductosComponent },
-            { path: 'certificaciones', component: CertificacionesComponent }
+            { path: 'certificaciones', component: CertificacionesComponent },
+            { path: 'general/:opcion', component: GeneralComponent },
         ]
     }];
