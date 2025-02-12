@@ -9,5 +9,7 @@ export class Seccion{
   btn_contacto:boolean
   imagenes:any[]
   archivos:any[]
+  images:any[]
+  pdf:string
 }
 

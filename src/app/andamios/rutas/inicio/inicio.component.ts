@@ -25,35 +25,35 @@ export class InicioComponent {
   imgResponsive: boolean = false;
   loading: boolean = false
 
-  seoTags:string
+  seoTags: string
 
   constructor(private andamiosService: AndamiosService,
-    private petitionsService: PetitionsService, private seo:SeoService) {
+    private petitionsService: PetitionsService, private seo: SeoService) {
 
-      this.seo.setTitle("Andamios Atlas")
+    this.seo.setTitle("Andamios Atlas")
 
-      this.loading = true;
-      this.obtenerCarrusel()
-      this.obtenerAnuncio()
-      this.obtenerInicio()
+    this.loading = true;
+    this.obtenerCarrusel()
+    this.obtenerAnuncio()
+    this.obtenerInicio()
 
-      afterRender(() => {
-        window.scrollTo(0, 0)
-        this.resizeSubscription = fromEvent(window, 'resize').subscribe(() => {
-          if (window.innerWidth < 749) {
-            this.imgResponsive = true
-          } else {
-            this.imgResponsive = false
-          }
-        });
-
+    afterRender(() => {
+      window.scrollTo(0, 0)
+      this.resizeSubscription = fromEvent(window, 'resize').subscribe(() => {
         if (window.innerWidth < 749) {
           this.imgResponsive = true
         } else {
           this.imgResponsive = false
         }
+      });
 
-      })
+      if (window.innerWidth < 749) {
+        this.imgResponsive = true
+      } else {
+        this.imgResponsive = false
+      }
+
+    })
   }
 
   ngAfterViewInit() {
@@ -62,10 +62,6 @@ export class InicioComponent {
 
   obtenerCarrusel() {
     this.andamiosService.obtenerCarrusel().subscribe((data) => {
-      /*data.forEach((element: Carrusel) => {
-        element.file = this.petitionsService.sanitizar(element.file)
-        element.fileResponsive = this.petitionsService.sanitizar(element.fileResponsive)
-      })*/
       this.slides = data;
     })
   }
@@ -79,20 +75,11 @@ export class InicioComponent {
   obtenerInicio() {
     this.andamiosService.obtenerInicio().subscribe((data: any[]) => {
 
-      /*for (let i = 0; i < data.length; i++) {
-        data[i].banner = this.petitionsService.sanitizar(data[i].banner)
-        for (let j = 0; j < data[i].secciones.length; j++) {
-          data[i].secciones[j].imagen_inicio = this.petitionsService.sanitizar(data[i].secciones[j].imagen_inicio)
-        }
-      }*/
-
       this.elementos = data;
 
       this.elementos.forEach(element => {
-        console.log(element.titulo)
-        if(element.secciones.length > 0){
+        if (element.secciones.length > 0) {
           element.secciones.forEach(seccion => {
-            console.log(seccion.nombre)
             this.seo.setKeywords([
               element.titulo,
               seccion.nombre

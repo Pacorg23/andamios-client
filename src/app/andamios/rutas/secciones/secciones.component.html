@@ -1,28 +1,32 @@
-@if(isSection){
-<div class="contenedor">
+<div class="contenedor" @fadeIn>
   <div class="title-container">
-    <h1 class="title title-decoration">{{title}}</h1>
+    <h1 class="title title-decoration">{{seccion?.nombre}}</h1>
   </div>
   <section class="contenido">
     <div class="img-principal">
       <img src="assets/solucion/banner.png" alt="">
     </div>
-    <div class="description-container" [innerHTML]="sanitizedHtml"></div>
+    <div class="description-container" [innerHTML]="sanitizedDescription"></div>
   </section>
 
+  @if(seccion?.images){
   <section class="grid">
-    <img src="assets/solucion/1.jpg" alt="">
-    <img src="assets/solucion/2.jpg" alt="">
-    <img src="assets/solucion/3.jpg" alt="">
+    @for (image of seccion.images; track image) {
+    <img [src]="image.file" alt="">
+    }
   </section>
+  }
 
   <section class="opciones">
+    @if(seccion?.btn_contacto){
     <button class="main-button"> Solicitar cotizacion </button>
-    <button class="main-button"> Descargar ficha tecnica </button>
+    }
+    @if(seccion?.btn_pdf){
+    <button class="main-button" (click)="downloadPdf(seccion.pdf)"> Descargar ficha tecnica </button>
+    }
   </section>
 </div>
-} @else if(isSubsection){
-<div class="contenedor">
-  <h1>Subsection</h1>
-</div>
+
+@if(wip){
+  <app-spinner></app-spinner>
 }

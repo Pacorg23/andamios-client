@@ -1,6 +1,10 @@
 <nav>
   <span>
-    <img src="assets/Logo_Andamios-Atlas.png" alt="">
+    @if(responsive){
+      <img id="responsive-img" src="assets/icons/isotipo-andamios-atlas.png" alt="">
+    } @else {
+      <img src="assets/Logo_Andamios-Atlas.png" alt="">
+    }
 
     <mat-icon (click)="mostrarMenu()">{{iconoActual}}</mat-icon>
   </span>
