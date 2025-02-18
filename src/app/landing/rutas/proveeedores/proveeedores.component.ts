@@ -66,21 +66,31 @@ export class ProveeedoresComponent {
   obtenerComunicados() {
     this.landingService.obtenerComunicados().subscribe((res: any) => {
       res.forEach(comunicado => {
-        const dateInMilliseconds = Date.parse(comunicado.createdAt);
-        const formattedDate = new Date(dateInMilliseconds).toLocaleDateString('es-MX', {
-          year: 'numeric',
-          month: 'numeric',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-        });
-        comunicado.createdAt = formattedDate;
+        // const dateInMilliseconds = Date.parse(comunicado.createdAt);
+        // const formattedDate = new Date(dateInMilliseconds).toLocaleDateString('es-MX', {
+          //   year: 'numeric',
+          //   month: 'numeric',
+          //   day: 'numeric',
+          //   hour: 'numeric',
+          //   minute: 'numeric',
+          // });
+        (comunicado.createdAt + '').indexOf('T')>=0 ?comunicado.createdAt= this.formatDateToDDMMYYYY(comunicado.createdAt): comunicado.createdAt;
       });
       this.comunicados = res;
       this.loading = false
     })
   }
-
+  formatDateToDDMMYYYY(isoDateString: string): string {
+    const date = new Date(isoDateString);
+  
+    // Obtener día, mes y año
+    const day = date.getUTCDate().toString().padStart(2, '0'); // Asegura que siempre tenga 2 dígitos
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
+    const year = date.getUTCFullYear();
+  
+    // Formatear en dd/mm/yyyy
+    return `${day}/${month}/${year}`;
+  }
   downloadFile(fileName: string, base64Content: string): void {
     const byteCharacters = atob(base64Content);
     const byteNumbers = new Array(byteCharacters.length);

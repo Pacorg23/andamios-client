@@ -14,6 +14,7 @@
   padding-bottom: 15px;
   border-bottom: 2px solid var(--color-primario);
   margin: 40px auto 30px auto;
+  text-align: center;
 }
 
 .ancho-min{
