@@ -24,5 +24,8 @@ export class LandingService {
   enviarFormulario(formData:FormData){
     return this.http.post(`${this.URL}crearSolicitud`, formData)
   }
+  enviarContacto(formData: FormData){
+    return this.http.post(`${this.URL}crearContacto`, formData)
+  }
 
 }

@@ -7,6 +7,7 @@ import { ClientesComponent } from "./rutas/clientes/clientes.component";
 import { JoinComponent } from "./rutas/join/join.component";
 import { PrivacidadComponent } from "./rutas/privacidad/privacidad.component";
 import { AnticorrupcionComponent } from "./rutas/anticorrupcion/anticorrupcion.component";
+import { ContactanosComponent} from "./rutas/contactanos/contactanos.component";
 
 export const routes : Routes = [
   { path: '', component: LandingComponent, children: [
@@ -16,7 +17,8 @@ export const routes : Routes = [
     { path: 'clientes', component: ClientesComponent},
     { path: 'unete-al-equipo', component: JoinComponent },
     { path: 'politicas-privacidad', component: PrivacidadComponent },
-    { path: 'aviso-anticorrupcion', component: AnticorrupcionComponent }
+    { path: 'aviso-anticorrupcion', component: AnticorrupcionComponent },
+    { path: 'contactanos/:division?', component: ContactanosComponent }
   ]}
 ]
 

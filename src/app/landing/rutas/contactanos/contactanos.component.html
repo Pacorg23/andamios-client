@@ -1,0 +1,150 @@
+<div class="contenedor" [@fadeIn]>
+
+  <section>
+    <div class="subtitle">¡TRABAJA CON NOSOTROS!</div>
+    <form action="" [formGroup]="formulario" (submit)="enviarFormulario()">
+      <label for="" class="form-label">Nombre Completo</label>
+      <input type="text" formControlName="nombre" class="form-control">
+      @if(formulario.get('nombre').invalid && formulario.get('nombre').touched || nombre){
+        @if(formulario.get('nombre').hasError('required')){
+          <div class="error">
+            El nombre es necsario.
+          </div>
+        }
+      }
+
+      <label for="" class="form-label">Empresa</label>
+      <input type="text" name="" id="" formControlName="empresa" class="form-control">
+      @if(formulario.get('empresa').invalid && formulario.get('empresa').touched || empresa){
+        @if(formulario.get('empresa').hasError('required')){
+          <div class="error">
+            El nombre de la empresa es necesario.
+          </div>
+        }
+      }
+
+      <label for="" class="form-label">Telefono fijo</label>
+      <input type="text" id="" formControlName="telefono_fijo" class="form-control">
+      @if(formulario.get('telefono_fijo').invalid && formulario.get('telefono_fijo').touched || telefono_fijo){
+        @if(formulario.get('telefono_fijo').hasError('required')){
+          <div class="error">
+            El teléfono fijo es necsario.
+          </div>
+        }
+      }
+
+      <label for="" class="form-label">Telefono celular</label>
+      <input type="text" id="" formControlName="telefono_celular" class="form-control">
+
+      <label for="" class="form-label">Correo electrónico</label>
+      <input type="text" formControlName="email" class="form-control">
+      @if(formulario.get('email').invalid && formulario.get('email').touched || email){
+      
+        @if(formulario.get('email').hasError('required')){
+          <div class="error">
+            El correo es necesario.
+          </div>
+        }
+        @if(formulario.get('email').hasError('email')){
+          <div class="error">
+            Por favor introduzca una dirección de correo valida.
+          </div>
+        }
+      }
+
+      <label for="" class="form-label">Localidad</label>
+      <select name="" id="" formControlName="localidad" class="form-control" [(ngModel)]="localidad_value"
+        (change)="toggleInput($event)">
+        <option value="">-- Escoge una opción --</option>
+        <option value="0">Otros</option>
+        <option value="Aguascalientes">Aguascalientes</option>
+        <option value="Baja California">Baja California</option>
+        <option value="Baja California Sur">Baja California Sur</option>
+        <option value="Campeche">Campeche</option>
+        <option value="Chiapas">Chiapas</option>
+        <option value="Chihuahua">Chihuahua</option>
+        <option value="Ciudad de México">Ciudad de México</option>
+        <option value="Coahuila">Coahuila</option>
+        <option value="Colima">Colima</option>
+        <option value="Durango">Durango</option>
+        <option value="Estado de México">Estado de México</option>
+        <option value="Guanajuato">Guanajuato</option>
+        <option value="Guerrero">Guerrero</option>
+        <option value="Hidalgo">Hidalgo</option>
+        <option value="Jalisco">Jalisco</option>
+        <option value="Michoacán">Michoacán</option>
+        <option value="Morelos">Morelos</option>
+        <option value="Nayarit">Nayarit</option>
+        <option value="Nuevo León">Nuevo León</option>
+        <option value="Oaxaca">Oaxaca</option>
+        <option value="Puebla">Puebla</option>
+        <option value="Querétaro">Querétaro</option>
+        <option value="Quintana Roo">Quintana Roo</option>
+        <option value="San Luis Potosí">San Luis Potosí</option>
+        <option value="Sinaloa">Sinaloa</option>
+        <option value="Sonora">Sonora</option>
+        <option value="Tabasco">Tabasco</option>
+        <option value="Tamaulipas">Tamaulipas</option>
+        <option value="Tlaxcala">Tlaxcala</option>
+        <option value="Veracruz">Veracruz</option>
+        <option value="Yucatán">Yucatán</option>
+        <option value="Zacatecas">Zacatecas</option>
+
+      </select>
+      @if(formulario.get('localidad').invalid && formulario.get('localidad').touched || localidad){
+      <div class="error">
+        Localidad es requerida
+      </div>
+      }
+
+
+      @if (extranjero){
+
+      <label for="" class="form-label" id="localidad_extranjera_label">Localidad extranjera</label>
+      <input type="text" name="" id="localidad_extranjera" formControlName="localidad_extranjera" class="form-control"
+        [(ngModel)]="localidad_extranjera_value">
+      @if(formulario.get('localidad_extranjera').invalid && formulario.get('localidad_extranjera').touched ||
+      localidad){
+      @if(formulario.get('localidad_extranjera').hasError('required')){
+      <div class="error">
+        Localidad extranjera es requerida
+      </div>
+      }
+      }
+      }
+
+
+      <label for="" class="form-label">Ubicación</label>
+      <input type="text" formControlName="ubicacion" class="form-control">
+      @if(formulario.get('ubicacion').invalid && formulario.get('ubicacion').touched || ubicacion){
+      <div class="error">
+        La ubicacion es necesarioa.
+      </div>
+      }
+
+      <label for="" class="form-label">Información</label>
+      <input type="text" formControlName="informacion" class="form-control">
+      @if(formulario.get('informacion').invalid && formulario.get('informacion').touched || informacion){
+      <div class="error">
+        Informacion extra es requerida
+      </div>
+      }
+
+      <div class="mb-3 escala">
+        <label for="" class="form-label">División</label>
+        <select name="" id="" class="form-control" formControlName="division">
+          <option value="" disabled>-- Escoge una opción --</option>
+          <option value="andamios">División Andamios Atlas</option>
+          <option value="conten">División Conten</option>
+        </select>
+        @if(formulario.get('division').invalid && formulario.get('division').touched || division){
+        <div class="error">
+          Es importante seleccionar la división
+        </div>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-outline-danger">Enviar</button>
+    </form>
+  </section>
+</div>
