@@ -39,8 +39,8 @@ h1{
 }
 
 .item img{
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
 }
 
 .item p {
@@ -98,6 +98,10 @@ p{
   width: 50%;
   height: 90%;
   transform: scale(0);
+}
+
+.contenido-pop img {
+  border-radius: 15px 15px 0 0 !important;
 }
 
 .icon-close{
@@ -288,7 +292,7 @@ p{
   color: white;
 }
 
-@media (800px >= width) and (width < 1200px){
+@media only screen and (min-width: 801px) and (max-width: 1200px){
   .contenedor{
     padding-top: 60px;
   }
@@ -361,7 +365,7 @@ p{
   }
 }
 
-@media (width < 800px){
+@media only screen and (min-width: 300px) and (max-width: 800px){
 
   .contenedor{
     padding-top: 60px;
@@ -372,7 +376,7 @@ p{
   }
 
   .grid{
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .item{

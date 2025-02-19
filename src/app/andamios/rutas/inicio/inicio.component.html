@@ -56,10 +56,17 @@
       }
       <div class="secciones">
         @for (seccion of elemento.secciones; track seccion) {
+        @if (!seccion.isTitle){
         <a href="andamios/contenido/seccion/{{seccion.url}}" class="item">
           <img [src]="seccion.imagen_inicio" alt="">
           <h4>{{seccion.nombre}}</h4>
         </a>
+        } @else {
+        <a href="andamios/contenido/lista-subseccion/{{seccion.url}}" class="item">
+          <img [src]="seccion.imagen_inicio" alt="">
+          <h4>{{seccion.nombre}}</h4>
+        </a>
+        }
         }
       </div>
     </section>

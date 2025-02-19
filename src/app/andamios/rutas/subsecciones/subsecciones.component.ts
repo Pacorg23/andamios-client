@@ -1,24 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import _ from 'lodash';
+import { PetitionsService } from '../../../petitions.service';
 import { AndamiosService } from '../../andamios.service';
 import { Seccion } from '../../models/seccion';
-import { PetitionsService } from '../../../petitions.service';
 import { fadeInAnimation } from '../../../fadeIn';
 import { SpinnerComponent } from '../../../spinner/spinner.component';
 
 const PDF_PREFIX = '-DOC.pdf';
 
 @Component({
-  selector: 'app-secciones',
+  selector: 'app-subsecciones',
   standalone: true,
   imports: [SpinnerComponent],
-  templateUrl: './secciones.component.html',
-  styleUrl: './secciones.component.css',
+  templateUrl: './subsecciones.component.html',
+  styleUrl: './subsecciones.component.css',
   animations: [fadeInAnimation]
 })
-export class SeccionesComponent {
+export class SubseccionesComponent {
 
   seccion: Seccion = new Seccion();
   wip: boolean = false;
@@ -39,31 +38,23 @@ export class SeccionesComponent {
     this.wip = true;
     this.route.paramMap.subscribe(params => {
       const name = params.get('name');
-      this.getSection(name);
+      this.getSubseccion(name);
       this.wip = false;
     });
   }
 
   /**
-   * @description Obtiene una seccion usando el nombre de url
-   * @param {string} name - Nombre de la seccion
+   * @description Obtiene una subseccion usando el nombre de url
+   * @param {string} name - Nombre de la subseccion
    * @returns {void}
    */
-  getSection(name: string): void {
-    this.andamiosService.obtenerSeccion(name).subscribe((data) => {
+  getSubseccion(name: string): void {
+    this.andamiosService.obtenerSubseccion(name).subscribe((data) => {
       this.seccion = data;
       console.log(this.seccion);
       this.wip = false;
     });
   }
-
-  /**
-   * @description Obtiene la descripcion de la seccion de manera segura
-   * @returns {void}
-   */
-  /*get sanitizedDescription(): SafeHtml {
-    return this.petitionService.sanitizeHtml(this.seccion.descripcion);
-  }*/
 
   /**
    * @description Obtiene un objeto descargable del pdf de la seccion
@@ -73,10 +64,4 @@ export class SeccionesComponent {
   downloadPdf(data: string): void {
     this.petitionService.readyToDownload(data, this.seccion.nombre + PDF_PREFIX);
   }
-
-  ngOnDestroy() {
-    this.seccion = null;
-  }
-
 }
-

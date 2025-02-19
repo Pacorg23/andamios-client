@@ -10,6 +10,7 @@ export class Seccion{
   imagenes:any[]
   archivos:any[]
   images:any[]
+  isTitle:boolean
   pdf:string
 }
 

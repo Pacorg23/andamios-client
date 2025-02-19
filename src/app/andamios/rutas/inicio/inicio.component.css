@@ -219,6 +219,11 @@ a {
     text-align: center;
   }
 
+  .catalogos{
+    grid-template-columns: repeat(3, 400px);
+    gap: 0;
+  }
+
 
 }
 

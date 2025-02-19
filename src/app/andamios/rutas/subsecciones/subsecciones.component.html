@@ -5,10 +5,10 @@
   <section class="contenido">
     <div class="img-principal">
       @if(seccion?.imagen_inicio){
-      <img [src]="seccion?.imagen_inicio" alt="">
-      } @else {
-      <img [src]="seccion.images[0].file" alt="">
-      }
+        <img [src]="seccion?.imagen_inicio" alt="">
+        } @else {
+        <img [src]="seccion.images[0].file" alt="">
+        }
     </div>
     <div class="description-container" [innerHTML]="seccion?.descripcion"></div>
   </section>

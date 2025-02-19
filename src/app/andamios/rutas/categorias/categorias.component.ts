@@ -25,6 +25,7 @@ export class CategoriasComponent {
   secciones:Seccion[] = []
   popSeccion:Seccion
   loading:boolean = false
+  showPop:boolean = false
 
   constructor(private andmiosService: AndamiosService, private route: ActivatedRoute,
     private petitionService:PetitionsService, private seo:SeoService
@@ -48,6 +49,7 @@ export class CategoriasComponent {
         }
 
         this.andmiosService.obtenerSecciones(elemento).subscribe((data:Seccion[]) => {
+          console.log(data)
 
           data.forEach((seccion:Seccion, index) => {
 
@@ -101,7 +103,7 @@ export class CategoriasComponent {
     setTimeout(()=>{
       document.getElementById('contenido-pop').classList.remove('openChild');
       document.getElementById('contenido-pop').classList.remove('closeChild');
-    }, 1200)
+    }, 900)
    }
 
    downloadFile(fileName: string, base64Content: string): void {
