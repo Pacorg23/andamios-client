@@ -39,8 +39,7 @@
   <section class="help">
     <h1 class="title" id="seccion">GUÍA RÁPIDA PARA PORTAL</h1>
     <!--PDF-->
-    <a href=""
-          class="btn btn-outline-danger">Descargar pdf</a>
+    <a href="" class="btn btn-outline-danger">Descargar pdf</a>
     <h4>¿Quedaste con dudas? !Contactanos!</h4>
     <a href="/atlas/contacto" class="btn btn-outline-danger" id="contacto">Contactanos</a>
   </section>
@@ -49,23 +48,27 @@
 
 @if(accion === 'comunicados'){
 <style>
-    .col-md-3 {
-        width: 25%;
-    }
-    .col-md-9 {
-        width: 75%;
-    }
-    .row {
+  .col-md-3 {
+    width: 25%;
+  }
+
+  .col-md-9 {
+    width: 75%;
+  }
+
+  .row {
     margin-right: 0;
     margin-left: 0;
-}
-.container {
+  }
+
+  .container {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-}
-h3 {
+  }
+
+  h3 {
     display: block;
     font-size: 1.17em;
     margin-block-start: 1em;
@@ -74,33 +77,35 @@ h3 {
     margin-inline-end: 0px;
     font-weight: bold;
     unicode-bidi: isolate;
-}
+  }
+
   .columna_izq li {
     list-style-type: none;
     padding: 10px 2px;
     border-bottom: 1px solid #efefef;
     font-size: 13px;
-}
+  }
+
   .columna_izq a {
     color: #000
-}
-a { 
-  text-decoration: none; /* Remove underline */ 
-}
-a:hover { 
-  text-decoration: underline; /* Add underline on hover */ 
+  }
+
+  a {
+    text-decoration: none;
+    /* Remove underline */
+  }
+
+  a:hover {
+    text-decoration: underline;
+    /* Add underline on hover */
   }
 </style>
 <div class="contenedor" [@fadeIn]>
   <h1 class="title">Comunicados</h1>
   <div class="container">
-  <div class="row">
-    
-    
-    <div class="col-md-9" >
-      <h2>COMUNICADOS</h2>
+    <div class="row">
+
     </div>
-  </div>
   </div>
   @for (comunicado of comunicados.reverse(); track comunicado) {
   <div>
@@ -108,7 +113,9 @@ a:hover {
       <div class="titulo">{{comunicado.titulo}}</div>
       <div class="fecha">{{comunicado.createdAt}}</div>
       <div class="descripcion">{{comunicado.comunicado}}</div>
+      @if(comunicado.link !== ''){
       <a href="" class="btn btn-outline-danger" id="btn-com">Ir al contenido</a>
+      }
     </div>
   </div>
   }

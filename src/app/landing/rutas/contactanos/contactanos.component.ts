@@ -59,7 +59,7 @@ export class ContactanosComponent {
     if (+this.localidad_value == 0) {
       this.extranjero = true
       localidad_extranjera_control.setValidators([Validators.required]);
-      
+
     }
     else {
       localidad_extranjera_control.clearValidators();
@@ -68,8 +68,6 @@ export class ContactanosComponent {
     localidad_extranjera_control.updateValueAndValidity();
   }
   enviarFormulario() {
-    
-    console.log(this.formulario)
     if (this.formulario.valid) {
       const formData = new FormData();
       formData.append('nombre', this.formulario.get('nombre').value)
@@ -83,8 +81,6 @@ export class ContactanosComponent {
       formData.append('duda', this.formulario.get('informacion').value)
       formData.append('division', this.formulario.get('division').value)
       this.landingService.enviarContacto(formData).subscribe(res => {
-        console.log(formData)
-        //this.alerta = res
         this.formulario.reset();
         this.nombre = false
         this.empresa = false

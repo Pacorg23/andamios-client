@@ -77,8 +77,6 @@ export class InicioComponent {
 
       this.elementos = data;
 
-      console.log(this.elementos)
-
       this.elementos.forEach(element => {
         if (element.secciones.length > 0) {
           element.secciones.forEach(seccion => {

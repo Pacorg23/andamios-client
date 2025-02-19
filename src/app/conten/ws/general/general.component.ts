@@ -254,7 +254,7 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
   }
   prevView(seccionId ?) {
     switch (this.comp.tipo) {
-      case 1: {//caso manufactura 
+      case 1: {//caso manufactura
         const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID
         if (carousel?.swiper) {
           carousel.swiper.slidePrev(); // Mueve al slide anterior
@@ -380,8 +380,6 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
           break;
         }
       }
-      // console.log(this.test_comp)
-
 
     })
   }

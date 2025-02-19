@@ -49,7 +49,6 @@ export class CategoriasComponent {
         }
 
         this.andmiosService.obtenerSecciones(elemento).subscribe((data:Seccion[]) => {
-          console.log(data)
 
           data.forEach((seccion:Seccion, index) => {
 
