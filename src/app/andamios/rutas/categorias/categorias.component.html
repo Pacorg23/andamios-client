@@ -6,10 +6,17 @@
   <div class="contenido">
     <div class="grid">
       @for (seccion of secciones; track seccion) {
+      @if(!seccion.isTitle){
       <a href="andamios/contenido/seccion/{{seccion.url}}" class="item">
         <img [src]="seccion.imagen_inicio" alt="">
         <p>{{seccion.nombre}}</p>
       </a>
+      } @else {
+      <a href="andamios/contenido/lista-subseccion/{{seccion.url}}" class="item">
+        <img [src]="seccion.imagen_inicio" alt="">
+        <p>{{seccion.nombre}}</p>
+      </a>
+      }
       }
     </div>
   </div>
@@ -83,7 +90,8 @@
       <h3>{{seccion.nombre}}</h3>
       <div class="panel-description" [innerHTML]="seccion.descripcion"></div>
       @if(seccion.btn_pdf){
-      <button type="button" (click)="downloadFile(seccion.archivos[0].nombre,seccion.archivos[0].file)">{{removePdfPrefix(seccion.archivos[0].nombre)}}</button>
+      <button type="button"
+        (click)="downloadFile(seccion.archivos[0].nombre,seccion.archivos[0].file)">{{removePdfPrefix(seccion.archivos[0].nombre)}}</button>
       }
     </div>
   </div>
@@ -97,5 +105,5 @@
 </div>
 
 @if(loading){
-  <app-spinner></app-spinner>
+<app-spinner></app-spinner>
 }

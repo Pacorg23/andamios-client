@@ -23,7 +23,8 @@
         @for (seccion of categoria.secciones; track seccion) {
         <div class="item-seccion">
           @if(seccion.isTitle){
-          <a>{{seccion.titulo}}</a>
+          <a href="/andamios/contenido/lista-subseccion/{{seccion.url}}" routerLink="/andamios/contenido/lista-subseccion/{{seccion.url}}"
+            routerLinkActive="active">{{seccion.titulo}}</a>
           } @else {
           <a href="/andamios/contenido/seccion/{{seccion.url}}" routerLink="/andamios/contenido/seccion/{{seccion.url}}"
             routerLinkActive="active">{{seccion.titulo}}</a>

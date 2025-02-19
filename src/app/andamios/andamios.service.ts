@@ -64,4 +64,8 @@ export class AndamiosService {
     return this.http.get<Seccion>(`${this.URL}obtenerSubseccion/${nombre}`)
   }
 
+  obtenerSubseccionPorSeccion(nombre: string): Observable<Seccion[]> {
+    return this.http.get<Seccion[]>(`${this.URL}obtenerSubseccion/seccion/${nombre}`)
+  }
+
 }
