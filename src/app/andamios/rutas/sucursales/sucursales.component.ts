@@ -51,8 +51,6 @@ export class SucursalesComponent {
         element.telefono = arrTelefonos; // Asignar el array si el campo telefono es any
       });
       this.sucursales = data;
-    }, err => {
-      console.error(err)
     })
   }
 }

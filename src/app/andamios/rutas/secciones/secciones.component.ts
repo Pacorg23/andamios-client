@@ -52,7 +52,6 @@ export class SeccionesComponent {
   getSection(name: string): void {
     this.andamiosService.obtenerSeccion(name).subscribe((data) => {
       this.seccion = data;
-      console.log(this.seccion);
       this.wip = false;
     });
   }
@@ -72,6 +71,10 @@ export class SeccionesComponent {
    */
   downloadPdf(data: string): void {
     this.petitionService.readyToDownload(data, this.seccion.nombre + PDF_PREFIX);
+  }
+
+  get defaultImage(): string | undefined {
+    return this.seccion?.images?.length ? this.seccion.images[0]?.file : undefined;
   }
 
   ngOnDestroy() {

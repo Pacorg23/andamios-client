@@ -71,7 +71,7 @@
 }
 
 .btn{
-  padding: 15px 0;
+  padding: 15px 15px;
   margin-bottom: 20px;
 }
 
@@ -95,4 +95,25 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+}
+
+@media only screen and (min-width: 750px) and (max-width: 1199px) {
+  .conjunto{
+    width: auto;
+  }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 749px){
+  .disclaimer {
+    padding: 0 15px;
+    font-size: 15px;
+  }
+
+  .btn{
+    padding: 15px 15px;
+  }
+
+  .conjunto{
+    width: auto;
+  }
 }

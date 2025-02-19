@@ -1,13 +1,15 @@
-<div class="contenido">
-  @for(seccion of subsecciones; track seccion) {
-  <div class="item">
-    <img src="" alt="">
-    <h2>Titulo</h2>
-  </div>
-  }
+<div class="contenido" >
+  <h1 class="title">{{title}}</h1>
+  <section class="grid">
+    @for(seccion of subsecciones; track seccion) {
+    <a href="/andamios/contenido/subseccion/{{seccion.url}}" class="item">
+      <img [src]="seccion.imagen_inicio" alt="">
+      <h2>{{seccion?.nombre}}</h2>
+    </a>
+    }
+  </section>
 </div>
 
 @if(wip){
 <app-spinner></app-spinner>
 }
-
