@@ -8,13 +8,13 @@
     <div class="contenido">
       <div class="seccion-titulo">
         <img id="background-title" src="assets/background-section.png" alt="">
-        <h2>{{subSeccion.name}}</h2>
+        <h2>{{subseccionMain.name}}</h2>
       </div>
       <div class="panel">
         <div class="carousel-section">
           <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-              @for (slide of subSeccion.imgs; track slide ; let isFirst = $first) {
+              @for (slide of subseccionMain.imgs; track slide ; let isFirst = $first) {
               <div class="carousel-item" [class.active]="isFirst">
                 <img [src]="slide.img" class="d-block w-100" alt="...">
               </div>
