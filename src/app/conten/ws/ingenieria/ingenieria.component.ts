@@ -31,20 +31,6 @@ export class IngenieriaComponent {
         { id: 2, img: 'assets/imagenes/ingenieria/ing2.jpg' },
         { id: 3, img: 'assets/imagenes/ingenieria/ing3.jpg' }
       ]
-    },
-    {
-      id: 2, description: this.sanitizer.bypassSecurityTrustHtml("descripcion"), imgs: [
-        { id: 1, img: 'assets/imagenes/ingenieria/ing1.jpg' },
-        { id: 2, img: 'assets/imagenes/ingenieria/ing2.jpg' },
-        { id: 3, img: 'assets/imagenes/ingenieria/ing3.jpg' }
-      ]
-    },
-    {
-      id: 3, description: this.sanitizer.bypassSecurityTrustHtml("descripcion"), imgs: [
-        { id: 1, img: 'assets/imagenes/ingenieria/ing1.jpg' },
-        { id: 2, img: 'assets/imagenes/ingenieria/ing2.jpg' },
-        { id: 3, img: 'assets/imagenes/ingenieria/ing3.jpg' }
-      ]
     }
   ]
 

@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
 
   constructor(private renderer: Renderer2) {
     afterRender(() => {
-      //this.loadChatBot();
+      this.loadChatBot();
     });
   }
 
