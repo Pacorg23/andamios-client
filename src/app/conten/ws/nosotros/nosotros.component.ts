@@ -26,32 +26,43 @@ export class NosotrosComponent {
 
   slides = [
     {
-      img: 'assets/imagenes/cA.jpg', //base64 image
+      img: 'assets/imagenes/carrusel/ca01.jpg', //base64 image
       imgResponsive: 'assets/imagenes/cA.jpg',
       title: 'Slide 1',
       description: 'Slide 1 description',
-      button: true
+      button: false
     },
     {
-      img: 'assets/imagenes/cB.jpg',
+      img: 'assets/imagenes/carrusel/ca02.jpg',
       imgResponsive: 'assets/imagenes/cB.jpg',
       title: 'Slide 2',
       description: 'Slide 2 description',
       button: true
+    },
+    {
+      img: 'assets/imagenes/carrusel/ca03.jpg',
+      imgResponsive: 'assets/imagenes/cC.jpg',
+      title: 'Slide 3',
+      description: 'Slide 3 description',
+      button: false
+    },
+    {
+      img: 'assets/imagenes/carrusel/ca04.jpg',
+      imgResponsive: 'assets/imagenes/cD.jpg',
+      title: 'Slide 4',
+      description: 'Slide 4 description',
+      button: true
+    },
+    {
+      img: 'assets/imagenes/carrusel/ca05.jpg',
+      imgResponsive: 'assets/imagenes/cE.jpg',
+      title: 'Slide 5',
+      description: 'Slide 5 description',
+      button: false
     }
   ]
 
   plantas = [
-    {
-      img: 'assets/imagenes/planta1.jpg',
-      size: '7,000 m2',
-      location: 'Planta San Luis Potosí'
-    },
-    {
-      img: 'assets/imagenes/planta2.jpg',
-      size: '10,000 m2',
-      location: 'Planta Tlanepantla de Baz'
-    },
     {
       img: 'assets/imagenes/planta1.jpg',
       size: '7,000 m2',

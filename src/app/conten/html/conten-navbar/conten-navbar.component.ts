@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MobileService } from '../../../mobile.service';
+import { register } from 'swiper/element/bundle';
+register();
 
 @Component({
   selector: 'app-conten-navbar',
   standalone: true,
   imports: [MatIcon, RouterLink, RouterLinkActive],
   templateUrl: './conten-navbar.component.html',
-  styleUrl: './conten-navbar.component.css'
+  styleUrl: './conten-navbar.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ContenNavbarComponent {
 
@@ -30,16 +33,20 @@ export class ContenNavbarComponent {
       isActive: true,
       sections: [
         {
-          title: 'Corte Laser para Tubo',
-          link: 'corte-laser-para-tubo'
+          title: 'Corte láser y plasma',
+          link: 'corte-laser-y-plasma'
         },
         {
-          title: 'Corte Laser Placa y Lamina',
-          link: 'corte-laser-placa-y-lamina'
+          title: 'Corte convencional',
+          link: 'corte-convencional'
         },
         {
-          title: 'Robot de Soldadura',
-          link: 'robot-de-soldadura'
+          title: 'Soldadura',
+          link: 'soldadura'
+        },
+        {
+          title: 'Pintura',
+          link: 'pintura'
         }
       ]
     },

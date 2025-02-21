@@ -6,8 +6,9 @@
   <div class="subseccion">
     <button type="button" class="exit-button" (click)="goTo('')"> <mat-icon>keyboard_return</mat-icon> </button>
     <div class="contenido">
-      <div class="title">
-        <h1>{{subSeccion.name}}</h1>
+      <div class="seccion-titulo">
+        <img id="background-title" src="assets/background-section.png" alt="">
+        <h2>{{subSeccion.name}}</h2>
       </div>
       <div class="panel">
         <div class="carousel-section">
@@ -41,11 +42,11 @@
   <div class="seccion">
     <div class="seccion-titulo">
       <img id="background-title" src="assets/background-section.png" alt="">
-      <h2>{{seccion.name}}</h2>
+      <h2>{{seccionMain.name}}</h2>
     </div>
     <div class="img-carrousel">
       <div class="prev">
-        <button (click)="prevView(seccion.id)">
+        <button (click)="prevView(seccionMain.id)">
           <mat-icon>keyboard_double_arrow_left</mat-icon>
         </button>
       </div>
@@ -54,7 +55,7 @@
         <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
           [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
           <!-- SLIDES -->
-          @for(slide of seccion.subSecciones; track slide){
+          @for(slide of seccionMain.subSecciones; track slide){
           <swiper-slide>
             <div class="element" [ngStyle]="{ height: height }" (click)="goTo(slide.name)">
               <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
@@ -71,7 +72,7 @@
         <!-- END CAROUSEL ELEMENT -->
       </div>
       <div class="next">
-        <button (click)="nextView(seccion.id)">
+        <button (click)="nextView(seccionMain.id)">
           <mat-icon>keyboard_double_arrow_right</mat-icon>
         </button>
       </div>
@@ -80,6 +81,32 @@
   }
   @else {
   <div class="contenido">
+
+    <section class="description">
+      <div class="main-description" [innerHTML]="categoria.descripcion"></div>
+      <div class="carousel-container">
+        <!-- CAROUSEL ELEMENT -->
+        <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
+          [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
+          <!-- SLIDES -->
+          @for(slide of categoria.contenido; track slide){
+          <swiper-slide class="slide-item">
+            <div class="element" [ngStyle]="{ height: height }">
+              <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
+                <img [src]="slide.img" alt="slide.img" class="img">
+              </div>
+              <div class="content">
+                <p>{{slide.name}}</p>
+              </div>
+            </div>
+          </swiper-slide>
+          }
+          <!-- END SLIDES -->
+        </swiper-container>
+        <!-- END CAROUSEL ELEMENT -->
+      </div>
+    </section>
+
     @for(seccion of secciones; track seccion){
     <div class="seccion">
       <div class="seccion-titulo">
@@ -98,7 +125,7 @@
             [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
             <!-- SLIDES -->
             @for(slide of seccion.subSecciones; track slide){
-            <swiper-slide>
+            <swiper-slide class="slide-item">
               <div class="element" [ngStyle]="{ height: height }" (click)="goTo(slide.name)">
                 <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
                   <img [src]="slide.img" alt="slide.img" class="img">

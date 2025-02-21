@@ -1,4 +1,4 @@
-<div class="contenedor" [@fadeIn]>
+<!--<div class="contenedor" [@fadeIn]>
   <div class="banner">
     <img src="assets/imagenes/Productos_1.png" alt="">
   </div>
@@ -16,6 +16,49 @@
           </div>
         </div>
       </div>
+    }
+  </div>
+</div>-->
+
+<div class="contenedor">
+  <div class="banner">
+    <img src="assets/imagenes/Productos_1.png" alt="">
+  </div>
+
+  <div class="contenido">
+    @for(producto of productos; track producto) {
+    <div class="item">
+      <div class="img-carrousel">
+        <div class="prev">
+          <button (click)="prevView(producto.id)">
+            <mat-icon>keyboard_double_arrow_left</mat-icon>
+          </button>
+        </div>
+        <div class="carousel-container">
+          <!-- CAROUSEL ELEMENT -->
+          <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
+            [ngStyle]="{ width: width }" id="carousel-{{producto.id}}">
+            <!-- SLIDES -->
+            @for(slide of producto.imgs; track slide){
+            <swiper-slide class="slide-item">
+              <div class="element" [ngStyle]="{ height: height }">
+                <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
+                  <img [src]="slide.file" alt="slide.img" class="img">
+                </div>
+              </div>
+            </swiper-slide>
+            }
+            <!-- END SLIDES -->
+          </swiper-container>
+          <!-- END CAROUSEL ELEMENT -->
+        </div>
+        <div class="next">
+          <button (click)="nextView(producto.id)">
+            <mat-icon>keyboard_double_arrow_right</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
     }
   </div>
 </div>
