@@ -3,28 +3,33 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Archivo } from './models/archivo';
 import { Comunicado } from './models/comunicado';
+import { ENV_CONSTANTS } from '../../environment';
+
+const SECTION_NAME = 'api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LandingService {
 
-  private URL = "http://localhost:3000/api/"
+  private URL: string = ""
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.URL = `${ENV_CONSTANTS.API_URL}:${ENV_CONSTANTS.PORT}/${SECTION_NAME}/`
+  }
 
-  obtenerArchivo(origen:string):Observable<Archivo>{
+  obtenerArchivo(origen: string): Observable<Archivo> {
     return this.http.get<Archivo>(`${this.URL}obtenerArchivo/${origen}`)
   }
 
-  obtenerComunicados():Observable<Comunicado[]>{
+  obtenerComunicados(): Observable<Comunicado[]> {
     return this.http.get<Comunicado[]>(`${this.URL}obtenerComunicados`)
   }
 
-  enviarFormulario(formData:FormData){
+  enviarFormulario(formData: FormData) {
     return this.http.post(`${this.URL}crearSolicitud`, formData)
   }
-  enviarContacto(formData: FormData){
+  enviarContacto(formData: FormData) {
     return this.http.post(`${this.URL}crearContacto`, formData)
   }
 

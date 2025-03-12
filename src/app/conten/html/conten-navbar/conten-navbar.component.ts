@@ -20,71 +20,71 @@ export class ContenNavbarComponent {
 
   configCategories = [
     {
-      title: 'NOSOTROS',
+      name: 'NOSOTROS',
       hasSections: false,
-      link: '/conten',
+      url: '/conten',
       isDefault: true,
       isActive: true
     },
     {
-      title: 'MANUFACTURA',
+      name: 'MANUFACTURA',
       hasSections: true,
-      link: '/conten/manufactura',
+      url: '/conten/manufactura',
       isActive: true,
       sections: [
         {
-          title: 'Corte láser y plasma',
-          link: 'corte-laser-y-plasma'
+          name: 'Corte láser y plasma',
+          url: 'corte-laser-y-plasma'
         },
         {
-          title: 'Corte convencional',
-          link: 'corte-convencional'
+          name: 'Corte convencional',
+          url: 'corte-convencional'
         },
         {
-          title: 'Soldadura',
-          link: 'soldadura'
+          name: 'Soldadura',
+          url: 'soldadura'
         },
         {
-          title: 'Pintura',
-          link: 'pintura'
+          name: 'Pintura',
+          url: 'pintura'
         }
       ]
     },
     {
-      title: 'DISEÑO E INGENIERÍA',
+      name: 'DISEÑO E INGENIERÍA',
       hasSections: false,
       isActive: true,
-      link: this.mainUrl + 'ingenieria'
+      url: this.mainUrl + 'ingenieria'
     },
     {
-      title: 'PRODUCTOS',
+      name: 'PRODUCTOS',
       hasSections: false,
       isActive: true,
-      link: this.mainUrl + 'productos'
+      url: this.mainUrl + 'productos'
     },
     {
-      title: 'NUESTRAS CERTIFICACIONES',
+      name: 'NUESTRAS CERTIFICACIONES',
       hasSections: false,
       isActive: true,
-      link: this.mainUrl + 'certificaciones'
+      url: this.mainUrl + 'certificaciones'
     },
     {
-      title: 'OPC1',
+      name: 'OPC1',
       hasSections: false,
       isActive: false,
-      link: this.mainUrl + 'opc1'
+      url: this.mainUrl + 'opc1'
     },
     {
-      title: 'OPC2 NUESTRAS CERTIFICACIONES',
+      name: 'OPC2 NUESTRAS CERTIFICACIONES',
       hasSections: false,
       isActive: false,
-      link: this.mainUrl + 'opc1'
+      url: this.mainUrl + 'opc1'
     },
     {
-      title: 'OPC2 NOMBRE LARGO',
+      name: 'OPC2 NOMBRE LARGO',
       hasSections: false,
       isActive: false,
-      link: this.mainUrl + 'opc1'
+      url: this.mainUrl + 'opc1'
     }
   ];
 

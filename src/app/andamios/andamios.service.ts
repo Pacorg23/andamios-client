@@ -8,15 +8,20 @@ import { Seccion } from './models/seccion';
 import { Categoria } from './models/categoria';
 import { Sucursal } from './models/sucursal';
 import { Imagen } from './models/imagen';
+import { ENV_CONSTANTS } from '../../environment';
+
+const SECTION_NAME = 'api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AndamiosService {
 
-  private URL = "http://localhost:3000/api/"
+  private URL: string = ""
 
-  constructor(private http: HttpClient, private petition: PetitionsService) { }
+  constructor(private http: HttpClient, private petition: PetitionsService) {
+    this.URL = `${ENV_CONSTANTS.API_URL}:${ENV_CONSTANTS.PORT}/${SECTION_NAME}/`
+  }
 
   /* NAVBAR */
   obtenerNavbar() {

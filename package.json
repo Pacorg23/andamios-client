@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:app-andamios": "node dist/app-andamios/server/server.mjs",
-    "preview": "ng build --configuration development && node dist/slider/server/server.mjs"
+    "preview": "ng build --configuration development && node dist/app-andamios/server/server.mjs"
   },
   "private": true,
   "dependencies": {

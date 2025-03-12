@@ -28,12 +28,12 @@
       @for (category of configCategories; track category) {
       @if(category.isActive){
       <div class="opc">
-        <a [routerLink]="category.link" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">{{category.title}}</a>
+        <a [routerLink]="category.url" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">{{category.name}}</a>
         @if(category.hasSections){
         <div class="subopc">
           @for (subcategory of category.sections; track subcategory) {
-          <a [routerLink]="'/conten/manufactura/seccion/' + subcategory.link">{{subcategory.title}}</a>
+          <a [routerLink]="'/conten/manufactura/seccion/' + subcategory.url">{{subcategory.name}}</a>
           }
         </div>
         }
@@ -59,8 +59,8 @@
         @for(category of configCategories; track category) {
         @if(category.isActive){
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="category.link" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">{{category.title}}</a>
+          <a class="nav-link active" aria-current="page" [routerLink]="category.url" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">{{category.name}}</a>
         </li>
         }
         }
