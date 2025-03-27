@@ -23,7 +23,7 @@ export class ProductosComponent {
       id: 1,
       name: 'Rack Automotriz',
       imgs: [
-        {id: 1, file:'assets/imagenes/productos/Rack.png'},
+        {id: 1, file:'assets/imagenes/productos/Rack.png'}, //TODO homologar file a img
         {id: 2, file:'assets/imagenes/productos/Rack0.jpg'},
         {id: 3, file:'assets/imagenes/productos/Rack1.jpg'},
         {id: 4, file:'assets/imagenes/productos/Rack2.jpg'},
