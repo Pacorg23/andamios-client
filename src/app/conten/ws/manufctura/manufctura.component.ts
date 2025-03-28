@@ -45,11 +45,11 @@ export class ManufcturaComponent {
   secciones = [
     {
       id: 1,
-      name: 'Corte láser y plasma',
+      name: 'Corte láser y plasma', //TODO CAMBIAR name por title en todo el componente
       url: 'corte-laser-y-plasma',
       tipo: 1,
       subSecciones: [
-        { id: 1, name: 'Corte láser para tubo', img: 'assets/imagenes/manufactura/CorteLaser/corte1.jpeg' },
+        { id: 1, name: 'Corte láser para tubo', img: 'assets/imagenes/manufactura/CorteLaser/corte1.jpeg' }, //TODO CAMBIAR name por title en todo el componente
         { id: 2, name: 'Corte láser placa y lámina', img: 'assets/imagenes/manufactura/CorteLaser/corte2.jpeg' },
         { id: 3, name: 'Corte láser con plasma', img: 'assets/imagenes/manufactura/CorteLaser/corte3.png' },
       ]
