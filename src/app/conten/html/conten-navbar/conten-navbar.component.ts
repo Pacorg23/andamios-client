@@ -3,6 +3,8 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MobileService } from '../../../mobile.service';
 import { register } from 'swiper/element/bundle';
+import { LandingService } from '../../conten.service';
+import { CommonModule } from '@angular/common';
 register();
 
 @Component({
@@ -17,7 +19,8 @@ export class ContenNavbarComponent {
 
   mainUrl = '/conten/';
   icon:string = 'menu'
-
+  
+  navbar:any
   configCategories = [
     {
       name: 'NOSOTROS',
@@ -91,13 +94,22 @@ export class ContenNavbarComponent {
   isMobile: boolean;
   isTablet: boolean;
 
-  constructor(private mobile: MobileService) {}
+  constructor(private mobile: MobileService, private accionesService: LandingService) {
+    
+    this.accionesService.obtenerNavbar().subscribe((data) => {
+      this.navbar = data;
+      console.log(this.navbar)
+    })
+  }
 
   ngOnInit() {
     this.mobile.getWidth().subscribe(width => {
       this.isMobile = width < 768;
       this.isTablet = width >= 768 && width < 1279;
     });
+    this.accionesService.obtenerNavbar().subscribe((data) => {
+      this.navbar = data;
+    })
   }
 
   toggleIcon(){

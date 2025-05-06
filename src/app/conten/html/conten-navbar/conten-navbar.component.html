@@ -2,7 +2,8 @@
 <nav>
   <section class="network">
     <div class="social">
-      <a href="https://api.whatsapp.com/send/?phone=5215572400383&text&type=phone_number&app_absent=0"><img src="assets/icons/wa.png" alt=""></a>
+      <a href="https://api.whatsapp.com/send/?phone=5215572400383&text&type=phone_number&app_absent=0"><img
+          src="assets/icons/wa.png" alt=""></a>
       <a href="https://www.facebook.com/Andamios.Atlas.Encofrados/"><img src="assets/icons/fb.png" alt=""></a>
       <a href="https://twitter.com/Andamios_Atlas?lang=es"><img src="assets/icons/x.png" alt=""></a>
       <a href="https://www.instagram.com/andamiosatlas/?hl=es-la"><img src="assets/icons/ig.png" alt=""></a>
@@ -24,23 +25,33 @@
       <a href="/andamios" id="logo"><img src="assets/Logo_Andamios-Atlas.png" alt="Andamios Atlas"></a>
       <a href="/" id="logo"><img src="assets/Logo-Conten.png" alt="Encofrados"></a>
     </div>
-    <div class="opciones">
-      @for (category of configCategories; track category) {
-      @if(category.isActive){
-      <div class="opc">
-        <a [routerLink]="category.url" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">{{category.name}}</a>
-        @if(category.hasSections){
-        <div class="subopc">
-          @for (subcategory of category.sections; track subcategory) {
-          <a [routerLink]="'/conten/manufactura/seccion/' + subcategory.url">{{subcategory.name}}</a>
-          }
+    @for (category of navbar; track category; let idx = $index) {
+    @if (category.is_active) {
+      @if(idx == 5){
+        <div class="opc">
         </div>
+          
+      }
+    <div class="opc">
+      <a [routerLink]="category.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        {{ category.title }}
+      </a>
+      @if (category.has_sections && category.tipo =='B') {
+      <div class="subopc">
+        @for (subcategory of category.secciones; track subcategory) {
+        <a [routerLink]="'/conten/general/' + subcategory.url">
+          {{ subcategory.title }}
+        </a>
         }
       </div>
       }
-      }
+      
+
     </div>
+    
+    }
+    }
+    
   </section>
 </nav>
 } @else {
@@ -56,8 +67,8 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        @for(category of configCategories; track category) {
-        @if(category.isActive){
+        @for(category of navbar; track category) {
+        @if(category.is_active){
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" [routerLink]="category.url" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}">{{category.name}}</a>
@@ -66,7 +77,8 @@
         }
         <li class="nav-item socials">
           <div class="social">
-            <a href="https://api.whatsapp.com/send/?phone=5215572400383&text&type=phone_number&app_absent=0"><img src="assets/icons/wa.png" alt=""></a>
+            <a href="https://api.whatsapp.com/send/?phone=5215572400383&text&type=phone_number&app_absent=0"><img
+                src="assets/icons/wa.png" alt=""></a>
             <a href="https://www.facebook.com/Andamios.Atlas.Encofrados/"><img src="assets/icons/fb.png" alt=""></a>
             <a href="https://twitter.com/Andamios_Atlas?lang=es"><img src="assets/icons/x.png" alt=""></a>
             <a href="https://www.instagram.com/andamiosatlas/?hl=es-la"><img src="assets/icons/ig.png" alt=""></a>

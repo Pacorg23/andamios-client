@@ -17,6 +17,6 @@ export const routes: Routes = [
             { path: 'ingenieria', component: IngenieriaComponent },
             { path: 'productos', component: ProductosComponent },
             { path: 'certificaciones', component: CertificacionesComponent },
-            { path: 'general/:opcion', component: GeneralComponent },
+            { path: 'general/:url', component: GeneralComponent },
         ]
     }];

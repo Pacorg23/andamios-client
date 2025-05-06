@@ -8,7 +8,7 @@
     <div class="contenido">
       <div class="seccion-titulo">
         <img id="background-title" src="assets/background-section.png" alt="">
-        <h2>{{subseccionMain.name}}</h2>
+        <h2>{{subseccionMain.title}}</h2>
       </div>
       <div class="panel">
         <div class="carousel-section">
@@ -16,7 +16,7 @@
             <div class="carousel-inner">
               @for (slide of subseccionMain.imgs; track slide ; let isFirst = $first) {
               <div class="carousel-item" [class.active]="isFirst">
-                <img [src]="slide.img" class="d-block w-100" alt="...">
+                <img [src]="slide.data" class="d-block w-100" alt="...">
               </div>
               }
             </div>
@@ -26,19 +26,19 @@
               <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
-        <div class="description">
-          <p [innerHTML]="safeDescription"></p>
-        </div>
+      </div>
+      <div class="description">
+        <p [innerHTML]="safeDescription"></p>
       </div>
     </div>
   </div>
-  } @else if (isSection){
+</div>
+} @else if (isSection){
   <div class="seccion">
     <div class="seccion-titulo">
       <img id="background-title" src="assets/background-section.png" alt="">
@@ -83,21 +83,21 @@
   <div class="contenido">
 
     <section class="description">
-      <div class="main-description" [innerHTML]="categoria.descripcion"></div>
+      <div class="main-description" [innerHTML]="categoria.description"></div>
       <div class="carousel-container">
         <!-- CAROUSEL ELEMENT -->
         <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
           [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
           <!-- SLIDES -->
-          @for(slide of categoria.contenido; track slide){
+          @for(slide of categoria.imgs; track slide){
           <swiper-slide class="slide-item">
             <div class="element" [ngStyle]="{ height: height }">
               <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
-                <img [src]="slide.img" alt="slide.img" class="img">
+                <img [src]="slide.data" alt="slide.img" class="img">
               </div>
-              <div class="content">
+              <!-- <div class="content">
                 <p>{{slide.name}}</p>
-              </div>
+              </div> -->
             </div>
           </swiper-slide>
           }
@@ -107,11 +107,11 @@
       </div>
     </section>
 
-    @for(seccion of secciones; track seccion){
+    @for(seccion of categoria.sections; track seccion){
     <div class="seccion">
       <div class="seccion-titulo">
         <img id="background-title" src="assets/background-section.png" alt="">
-        <h2>{{seccion.name}}</h2>
+        <h2>{{seccion.title}}</h2>
       </div>
       <div class="img-carrousel">
         <div class="prev">
@@ -126,12 +126,12 @@
             <!-- SLIDES -->
             @for(slide of seccion.subSecciones; track slide){
             <swiper-slide class="slide-item">
-              <div class="element" [ngStyle]="{ height: height }" (click)="goTo(slide.name)">
+              <div class="element" [ngStyle]="{ height: height }" (click)="goTo(slide.title)">
                 <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
                   <img [src]="slide.img" alt="slide.img" class="img">
                 </div>
                 <div class="content">
-                  <p>{{slide.name}}</p>
+                  <p>{{slide.title}}</p>
                 </div>
               </div>
             </swiper-slide>
