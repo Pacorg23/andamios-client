@@ -26,13 +26,13 @@ export class LandingService {
     return this.http.get(`${this.URL}obtenerNavBarConten`)
   }
   public obtenerCategoria(url:string): Observable<Category> {
-    return this.http.get<Category>(`${this.URL}/obtenerCategoria/${url}`);
+    return this.http.get<Category>(`${this.URL}obtenerCategoria/${url}`);
   }
-  public obtenerSeccionManufact(url:string): Observable<Section> {
-    return this.http.get<Section>(`${this.URL}/obtenerSeccionManufact/${url}`);
+  public obtenerSeccionConten(url:string): Observable<Section> {
+    return this.http.get<Section>(`${this.URL}/obtenerSeccionConten/${url}`);
   }
-  public obtenerSubSeccionManufact(url:string): Observable<Section> {
-    return this.http.get<Section>(`${this.URL}/obtenerSubSeccionManufact/${url}`);
+  public obtenerSubSeccionConten(url:string): Observable<Section> {
+    return this.http.get<Section>(`${this.URL}/obtenerSubSeccionConten/${url}`);
   }
   obtenerSecciones() {
     return this.http.get(`${this.URL}obtenerNavBarConten`)

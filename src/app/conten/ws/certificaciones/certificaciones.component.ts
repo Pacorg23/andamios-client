@@ -5,6 +5,7 @@ import { register } from 'swiper/element/bundle';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LandingService } from '../../conten.service';
 // register Swiper custom elements
 register();
 
@@ -36,6 +37,7 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
 `, img: 'assets/imagenes/certificaciones/certi2.png'
     }
   ]
+  Secciones 
 
   //CAROUSEL//
   slidesPer: number = 1;
@@ -61,9 +63,15 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
     pauseOnMouseEnter: true
   }
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer,
+    private contenService: LandingService
+  ) {
     this.cerificaciones.forEach(certificacion => {
       certificacion.description = this.sanitizer.bypassSecurityTrustHtml(certificacion.description);
+    });
+    this.contenService.obtenerCategoria("nuestras-certificaciones").subscribe((categoria) => {
+      this.Secciones= categoria.sections
+      console.log(this.Secciones)
     });
   }
 

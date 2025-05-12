@@ -320,16 +320,14 @@ export class ManufcturaComponent {
       const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
 
       if (currentRoute.includes(MANUFACTURA_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
-        this.contenService.obtenerSubSeccionManufact(title).subscribe((subseccionMain)=>{
-          console.log("subseccionMain")
-          console.log(subseccionMain)
+        this.contenService.obtenerSubSeccionConten(title).subscribe((subseccionMain)=>{
           this.subseccionMain = subseccionMain[0]
+          this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccionMain.description);
         });
         this.isSubSection = true;
         this.isSection = false;
-        this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccionMain.description);
       } else if (currentRoute.includes(MANUFACTURA_SECTION_ROUTE) && !_.isEmpty(title)) {
-        this.contenService.obtenerSeccionManufact(title).subscribe((seccionMain)=>{
+        this.contenService.obtenerSeccionConten(title).subscribe((seccionMain)=>{
           this.seccionMain = seccionMain
         });
         this.isSection = true;

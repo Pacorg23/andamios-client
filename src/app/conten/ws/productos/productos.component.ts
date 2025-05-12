@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { register } from 'swiper/element/bundle';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { LandingService } from '../../conten.service';
 register();
 
 @Component({
@@ -47,6 +48,7 @@ export class ProductosComponent {
       ]
     }
   ]
+  Secciones
 
     //CAROUSEL//
     slidesPer: number = 1;
@@ -72,7 +74,14 @@ export class ProductosComponent {
       pauseOnMouseEnter: true
     };
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer,
+    private contenService: LandingService
+  ) { 
+    this.contenService.obtenerCategoria("productos").subscribe((categoria) => {
+      this.Secciones= categoria.sections
+      console.log(this.Secciones)
+    });
+  }
 
   nextView(seccionId) {
     const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID

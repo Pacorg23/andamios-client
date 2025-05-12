@@ -39,9 +39,17 @@
       @if (category.has_sections && category.tipo =='B') {
       <div class="subopc">
         @for (subcategory of category.secciones; track subcategory) {
-        <a [routerLink]="'/conten/general/' + subcategory.url">
-          {{ subcategory.title }}
-        </a>
+          @if(category.is_default){
+            
+            <a [routerLink]="'/conten/manufactura/seccion/' + subcategory.url">
+              {{ subcategory.title }}
+            </a>
+          } @else{
+            <a [routerLink]="'/conten/general/' + subcategory.url">
+              {{ subcategory.title }}
+            </a>
+
+          }
         }
       </div>
       }

@@ -98,6 +98,8 @@ export class ContenNavbarComponent {
     
     this.accionesService.obtenerNavbar().subscribe((data) => {
       this.navbar = data;
+      console.log("this.navbar")
+
       console.log(this.navbar)
     })
   }

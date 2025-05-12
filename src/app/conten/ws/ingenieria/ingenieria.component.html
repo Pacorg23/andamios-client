@@ -4,7 +4,7 @@
   </div>
 
   <div class="contenido">
-    @for (design of designs; track design) {
+    @for (design of Secciones; track design) {
     <div class="item">
       <div class="img-carrousel">
         <div class="prev">
@@ -20,7 +20,7 @@
             @for(slide of design.imgs; track slide){
             <swiper-slide>
               <div class="img-container">
-                <img [src]="slide.img" alt="slide.img" class="img">
+                <img [src]="slide.data" alt="slide.img" class="img">
               </div>
             </swiper-slide>
             }
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="description-box">
-        <p [innerHTML]="design.description"></p>
+        <div [innerHTML]="design.description"></div>
       </div>
     </div>
     }

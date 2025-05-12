@@ -49,6 +49,7 @@ a {
 .menu {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 80px;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
