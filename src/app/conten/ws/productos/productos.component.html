@@ -4,7 +4,7 @@
   </div>
 
   <div class="contenido">
-    @for(producto of productos; track producto) {
+    @for(producto of Secciones; track producto) {
     <div class="item">
       <div class="img-carrousel">
         <div class="prev">
@@ -17,11 +17,11 @@
           <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
             [ngStyle]="{ width: width }" id="carousel-{{producto.id}}">
             <!-- SLIDES -->
-            @for(slide of producto.imgs; track slide){
+            @for(slide of producto?.imgs; track slide){
             <swiper-slide class="slide-item">
               <div class="element" [ngStyle]="{ height: height }">
                 <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
-                  <img [src]="slide.file" alt="slide.img" class="img">
+                  <img [src]="slide.data" alt="slide.img" class="img">
                 </div>
               </div>
             </swiper-slide>

@@ -2,160 +2,168 @@
 Estilos generales
 */
 a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 
 /* Estilos de la barra de navegación */
 
 .network {
-    background-color: var(--color-secundario);
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 25px 40px;
+  background-color: var(--color-secundario);
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 40px;
 }
 
 .social {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .social img {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .contact {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .contact p {
-    color: white;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 0;
+  color: white;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
 }
 
 .menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 10px 40px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 80px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 40px;
 }
 
 .logos {
-    display: flex;
-    align-items: center;
-    gap: 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
 #logo img {
-    height: auto;
-    width: 100px;
+  height: auto;
+  width: 100px;
 }
 
 .opciones {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
 }
 
 .opc {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    position: relative;
-    transition: background-color 0.3s;
+  display: table-caption;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  transition: background-color 0.3s;
 }
 
 .opc a {
-    color: black;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.3s, background-color 0.3s;
+  color: black;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s, background-color 0.3s;
 }
 
 .opc a:hover {
-    color: white;
-    background-color: var(--color-secundario);
+  color: white;
+  background-color: var(--color-secundario);
 }
 
 /* Asegurarte de que el hover esté activo cuando el submenú esté visible */
 .opc:hover a {
-    color: white;
-    background-color: var(--color-secundario); /* Esto asegura que el enlace mantenga el color de fondo cuando el submenú se muestra */
+  color: white;
+  background-color: var(--color-secundario);
+  /* Esto asegura que el enlace mantenga el color de fondo cuando el submenú se muestra */
 }
 
 /* Submenú oculto inicialmente */
 .subopc {
-    z-index: -1;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: white;
-    z-index: 100;
-    transition: opacity 0.3s, pointer-events 0.3s;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  z-index: 100;
+  transition: opacity 0.3s, pointer-events 0.3s;
 }
 
 /* Estilo de los enlaces del submenú */
 .subopc a {
-    color: white;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    background-color: var(--color-secundario);
+  color: white;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  background-color: var(--color-secundario);
 }
 
 /* Hover en subenlaces */
 .subopc a:hover {
-    border: 5px solid var(--color-secundario);
-    background-color: white;
-    color: var(--color-secundario);
+  border: 5px solid var(--color-secundario);
+  background-color: white;
+  color: var(--color-secundario);
 }
 
 /* Mostrar el submenú cuando se hace hover sobre la categoría */
 .opc:hover .subopc {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .active {
-    color: white !important;
-    background-color: var(--color-secundario);
+  color: white !important;
+  background-color: var(--color-secundario);
 }
 
 @media only screen and (min-width: 3440px) {}
 
-@media only screen and (min-width: 2560px) and (max-width: 3439px) { /* WIDE MONITORS */
-  .menu{
+@media only screen and (min-width: 2560px) and (max-width: 3439px) {
+
+  /* WIDE MONITORS */
+  .menu {
     justify-content: flex-start;
   }
 
   .opc a {
+    padding: 10px 0px;
+  }
+  .opc-general a {
     padding: 10px 0px;
   }
 
@@ -165,11 +173,14 @@ a {
 }
 
 @media only screen and (min-width: 1920px) and (max-width: 2559px) {
-  .menu{
+  .menu {
     justify-content: flex-start;
   }
 
   .opc a {
+    padding: 9px 0px;
+  }
+  .opc-general a {
     padding: 9px 0px;
   }
 
@@ -178,8 +189,10 @@ a {
   }
 }
 
-@media only screen and (min-width: 1280px) and (max-width: 1919px) { /* LAPTOP */
-  .menu{
+@media only screen and (min-width: 1280px) and (max-width: 1919px) {
+
+  /* LAPTOP */
+  .menu {
     justify-content: flex-start;
   }
 
@@ -188,8 +201,10 @@ a {
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1279px) { /* TABLET */
-  .navbar{
+@media only screen and (min-width: 768px) and (max-width: 1279px) {
+
+  /* TABLET */
+  .navbar {
     background-color: var(--color-secundario) !important;
   }
 
@@ -201,7 +216,7 @@ a {
     outline: none !important;
   }
 
-  .navbar-toggler-icon{
+  .navbar-toggler-icon {
     filter: invert(1);
   }
 
@@ -217,15 +232,15 @@ a {
     filter: brightness(0) invert(1);
   }
 
-  .nav-item{
+  .nav-item {
     padding: 10px 0px;
   }
 
-  .nav-item a{
+  .nav-item a {
     text-align: center;
   }
 
-  .socials{
+  .socials {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,8 +252,10 @@ a {
   }
 }
 
-@media only screen and (max-width: 767px) { /* MOBILE */
-  .navbar{
+@media only screen and (max-width: 767px) {
+
+  /* MOBILE */
+  .navbar {
     background-color: var(--color-secundario) !important;
   }
 
@@ -250,7 +267,7 @@ a {
     outline: none !important;
   }
 
-  .navbar-toggler-icon{
+  .navbar-toggler-icon {
     filter: invert(1);
   }
 
@@ -266,15 +283,15 @@ a {
     filter: brightness(0) invert(1);
   }
 
-  .nav-item{
+  .nav-item {
     padding: 10px 0px;
   }
 
-  .nav-item a{
+  .nav-item a {
     text-align: center;
   }
 
-  .socials{
+  .socials {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -284,4 +301,87 @@ a {
     color: white !important;
     background-color: var(--color-secundario);
   }
+}
+
+.opc-general {
+  display: table-caption;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.opc-general a {
+  color: black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.opc-general > a:hover {
+  color: white;
+  background-color: var(--color-secundario);
+}
+
+/* Asegurarte de que el hover esté activo cuando el submenú esté visible */
+.opc-general:hover a {
+  color: white;
+  background-color: var(--color-secundario);
+  /* Esto asegura que el enlace mantenga el color de fondo cuando el submenú se muestra */
+}
+.opc-general .subnav-content{
+  display:none;
+}
+.opc-general:hover .subnav-content{
+  display:block;
+}
+.subnav-content{
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  min-width: fit-content;
+  border-radius: 3px;
+
+}
+.dropleft-option{
+  text-align: start;
+  display: flex;
+  align-items: start;
+  padding: 3px;
+}
+/* .dropleft-option:hover{
+  color: white;
+  background-color: var(--color-secundario);
+
+} */
+.dropleft-menu:hover  .dropleft-option{
+  color:var(--color-secundario);
+  background-color:  white;
+
+}
+ .dropleft-higlight:hover .dropleft-suboption{
+  color: var(--color-secundario);
+  background-color: white;
+
+}
+.dropleft-container{
+  position: absolute;
+  top: 0;
+  left: 100%;
+  display: none;
+}
+.dropleft-menu{
+  display: inline-block;
+  position: relative;
+  min-width: -webkit-fill-available;
+}
+.dropleft-option{
+  cursor: pointer;
+  position: relative;
+  min-width: -webkit-fill-available;
+}
+.dropleft-menu:hover .dropleft-container{
+  display: block;
 }

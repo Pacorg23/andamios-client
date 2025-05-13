@@ -15,11 +15,11 @@
       <swiper-container autoplay="false" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
         [ngStyle]="{ width: width }" id="carousel">
         <!-- SLIDES -->
-        @for(slide of cerificaciones; track slide){
+        @for(slide of Secciones; track slide){
         <swiper-slide>
           <div class="element" [ngStyle]="{ height: height }">
             <div class="description-container">
-              <p [innerHTML]="slide.description"></p>
+              <div [innerHTML]="slide.description"></div>
             </div>
             <!--TODO Implement (click)=download(slide.doc)-->
             <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">

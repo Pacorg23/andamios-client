@@ -14,9 +14,9 @@ export const routes: Routes = [
             { path: 'manufactura', component: ManufcturaComponent },
             { path: 'manufactura/seccion/:name', component: ManufcturaComponent },
             { path: 'manufactura/subseccion/:name', component: ManufcturaComponent },
-            { path: 'ingenieria', component: IngenieriaComponent },
+            { path: 'diseno-e-ingenieria', component: IngenieriaComponent },
             { path: 'productos', component: ProductosComponent },
-            { path: 'certificaciones', component: CertificacionesComponent },
-            { path: 'general/:opcion', component: GeneralComponent },
+            { path: 'nuestras-certificaciones', component: CertificacionesComponent },
+            { path: 'general/:url', component: GeneralComponent },
         ]
     }];

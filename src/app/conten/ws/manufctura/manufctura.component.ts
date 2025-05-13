@@ -4,14 +4,17 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LandingService } from '../../conten.service';
 import _ from 'lodash';
 // import function to register Swiper custom elements
 import { register } from 'swiper/element/bundle';
 import { PetitionsService } from '../../../petitions.service';
 import { MobileService } from '../../../mobile.service';
+import { Category } from '../../models/category';
 // register Swiper custom elements
 register();
 
+const MANUFACTURA_CATEGORY = 'manufactura';
 const MANUFACTURA_SECTION_ROUTE = 'manufactura/seccion';
 const MANUFACTURA_SUBSECTION_ROUTE = 'manufactura/subseccion';
 
@@ -29,17 +32,18 @@ export class ManufcturaComponent {
   //ITEMS//
 
   //CATEGORIA//
-  categoria = {
-    id: 1,
-    name: 'Manufactura',
-    url: 'manufactura',
-    descripcion: '<p>En nuestra división de Manufactura, actualmente contamos con maquinaria especializada y perfectas instalaciones que nos permiten cortar, doblar, troquelar, soldar materiales de acero en gran volumen. </p>',
-    contenido: [
-      {id: 1, name: 'Máquina láser LC-5', img: 'assets/imagenes/manufactura/maquinas/maquina1.png'},
-      {id: 2, name: 'Máquina láser LS-5', img: 'assets/imagenes/manufactura/maquinas/maquina2.png'},
-      {id: 3, name: 'Máquina láser LS-7', img: 'assets/imagenes/manufactura/maquinas/maquina3.jpg'},
-    ]
-  }
+  public categoria: Category;
+  // categoria = {
+  //   id: 1,
+  //   name: 'Manufactura',
+  //   url: 'manufactura',
+  //   descripcion: '<p>En nuestra división de Manufactura, actualmente contamos con maquinaria especializada y perfectas instalaciones que nos permiten cortar, doblar, troquelar, soldar materiales de acero en gran volumen. </p>',
+  //   contenido: [
+  //     {id: 1, name: 'Máquina láser LC-5', img: 'assets/imagenes/manufactura/maquinas/maquina1.png'},
+  //     {id: 2, name: 'Máquina láser LS-5', img: 'assets/imagenes/manufactura/maquinas/maquina2.png'},
+  //     {id: 3, name: 'Máquina láser LS-7', img: 'assets/imagenes/manufactura/maquinas/maquina3.jpg'},
+  //   ]
+  // }
 
   //CARRUSELES EJEMPLO DE SUBSECCIONES//
   secciones = [
@@ -47,7 +51,6 @@ export class ManufcturaComponent {
       id: 1,
       name: 'Corte láser y plasma', //TODO CAMBIAR name por title en todo el componente
       url: 'corte-laser-y-plasma',
-      tipo: 1,
       subSecciones: [
         { id: 1, name: 'Corte láser para tubo', img: 'assets/imagenes/manufactura/CorteLaser/corte1.jpeg' }, //TODO CAMBIAR name por title en todo el componente
         { id: 2, name: 'Corte láser placa y lámina', img: 'assets/imagenes/manufactura/CorteLaser/corte2.jpeg' },
@@ -306,7 +309,9 @@ export class ManufcturaComponent {
   constructor(private router: Router, private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private petitionsService: PetitionsService,
-    private mobile: MobileService
+    private mobile: MobileService,
+    private contenService: LandingService
+
   ) {
     this.route.paramMap.subscribe(params => {
       this.isSection = false;
@@ -315,15 +320,22 @@ export class ManufcturaComponent {
       const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
 
       if (currentRoute.includes(MANUFACTURA_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
-        this.subseccionMain = this.subseccionesTEMP.find(sub => sub.url === title);
+        this.contenService.obtenerSubSeccionConten(title).subscribe((subseccionMain)=>{
+          this.subseccionMain = subseccionMain[0]
+          this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccionMain.description);
+        });
         this.isSubSection = true;
         this.isSection = false;
-        this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccionMain.description);
       } else if (currentRoute.includes(MANUFACTURA_SECTION_ROUTE) && !_.isEmpty(title)) {
-        this.seccionMain = this.secciones.find(seccion => seccion.url === title);
+        this.contenService.obtenerSeccionConten(title).subscribe((seccionMain)=>{
+          this.seccionMain = seccionMain
+        });
         this.isSection = true;
         this.isSubSection = false;
       } else {
+        this.contenService.obtenerCategoria(MANUFACTURA_CATEGORY).subscribe((categoria)=>{
+          this.categoria = categoria
+        });
         this.isSubSection = false;
         this.isSection = false;
       }

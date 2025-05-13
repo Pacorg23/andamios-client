@@ -9,9 +9,19 @@ import _ from 'lodash';
 import { register } from 'swiper/element/bundle';
 import { PetitionsService } from '../../../petitions.service';
 import { MobileService } from '../../../mobile.service';
+import { LandingService } from '../../conten.service';
+import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
+import { Category } from '../../models/category';
+import { ThisReceiver } from '@angular/compiler';
 // register Swiper custom elements
 register();
-
+export class Categoria {
+  id: number
+  title: number
+  descrip: boolean
+  btnText: string
+  url: string
+}
 const MANUFACTURA_SECTION_ROUTE = 'manufactura/seccion';
 const MANUFACTURA_SUBSECTION_ROUTE = 'manufactura/subseccion';
 
@@ -25,39 +35,49 @@ const MANUFACTURA_SUBSECTION_ROUTE = 'manufactura/subseccion';
   animations: [fadeInAnimation]
 })
 export class GeneralComponent {
-  test_comp: number = 0
-  comp: { id: number, titulo: string, tipo: number }
+  categoria: Category;
+  categoriaB: Category;
+  comp: { url: string, titulo: string, tipo: string }
   //Datos de manufactura conten
   secciones = [
     {
       id: 1,
-      name: 'Corte Laser para Tubo',
-      tipo: 1,
+      name: 'Corte láser y plasma', //TODO CAMBIAR name por title en todo el componente
+      url: 'corte-laser-y-plasma',
       subSecciones: [
-        { id: 1, name: 'Item 1', img: 'assets/imagenes/manufactura/CorteLaser/corte1.jpeg' },
-        { id: 2, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CorteLaser/corte2.jpeg' },
-        { id: 3, name: 'Item 3', img: 'assets/imagenes/manufactura/CorteLaser/corte3.jpeg' },
-
+        { id: 1, name: 'Corte láser para tubo', img: 'assets/imagenes/manufactura/CorteLaser/corte1.jpeg' }, //TODO CAMBIAR name por title en todo el componente
+        { id: 2, name: 'Corte láser placa y lámina', img: 'assets/imagenes/manufactura/CorteLaser/corte2.jpeg' },
+        { id: 3, name: 'Corte láser con plasma', img: 'assets/imagenes/manufactura/CorteLaser/corte3.png' },
       ]
     },
     {
       id: 2,
-      name: 'Corte Laser Placa y Lamina',
+      name: 'Corte convencional',
+      url: 'corte-convencional',
       subSecciones: [
-        { id: 1, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa1.jpg' },
-        { id: 2, name: 'Item 2', img: 'assets/imagenes/manufactura/CortePlaca/placa2.jpg' },
-        { id: 3, name: 'Item 3', img: 'assets/imagenes/manufactura/CortePlaca/placa3.jpg' },
-        { id: 4, name: 'Item 4', img: 'assets/imagenes/manufactura/CortePlaca/placa4.jpg' },
-        { id: 5, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa5.jpg' }
+        { id: 1, name: 'Corte con cizalla', img: 'assets/imagenes/manufactura/CorteConvencional/conve1.jpg' },
+        { id: 2, name: 'Troquelado', img: 'assets/imagenes/manufactura/CorteConvencional/conve2.png' },
+        { id: 3, name: 'Corte con sierra cinta', img: 'assets/imagenes/manufactura/CorteConvencional/conve3.png' }
       ]
     },
     {
       id: 3,
-      name: 'Robot de Soldadura',
+      name: 'Soldadura',
+      url: 'soldadura',
       subSecciones: [
-        { id: 1, name: 'Item 1', img: 'assets/imagenes/manufactura/RobotSoldadura/robot1.jpg' },
-        { id: 2, name: 'Item 2', img: 'assets/imagenes/manufactura/RobotSoldadura/robot2.jpg' },
-        { id: 3, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/RobotSoldadura/robot3.jpg' }
+        { id: 1, name: 'Corte de barras y tubería', img: 'assets/imagenes/manufactura/Soldadura/robot1.png' },
+        { id: 2, name: 'Doblez de placa y lámina', img: 'assets/imagenes/manufactura/Soldadura/robot2.jpg' },
+        { id: 3, name: 'Robot de soldadura', img: 'assets/imagenes/manufactura/Soldadura/robot3.png' }
+      ]
+    },
+    {
+      id: 4,
+      name: 'Pintura',
+      url: 'pintura',
+      subSecciones: [
+        { id: 1, name: 'Sistema de pintura en polvo', img: 'assets/imagenes/manufactura/Pintura/pintura1.jpg' },
+        { id: 2, name: 'Sistema de pintura líquida', img: 'assets/imagenes/manufactura/Pintura/pintura2.jpg' },
+        { id: 3, name: 'Medición de racks por medio de scanner', img: 'assets/imagenes/manufactura/Pintura/pintura3.jpg' }
       ]
     }
   ];
@@ -85,65 +105,6 @@ export class GeneralComponent {
     ]
   }
 
-  //Datos ingenieria
-  designs = [
-    {
-      id: 1, description: this.sanitizer.bypassSecurityTrustHtml(`
-      Utilizando nuestra experiencia en el diseño de propuestas hechas a la medida para cada necesidad.<br>
-      <br>
-      Ofrecemos una amplia variedad de diseños, desarrollados a partir de programas especializados compatibles con cualquier software que nuestros clientes utilicen.<br>
-      Cada proyecto es diseñado por un equipo con amplia experiencia, conocimiento y creatividad, utilizando nuestros equipos de alta tecnología para su desarrollo.
-    `), imgs: [
-        { id: 1, img: 'assets/imagenes/ingenieria/ing1.jpg' },
-        { id: 2, img: 'assets/imagenes/ingenieria/ing2.jpg' },
-        { id: 3, img: 'assets/imagenes/ingenieria/ing3.jpg' }
-      ]
-    },
-    {
-      id: 2, description: this.sanitizer.bypassSecurityTrustHtml("descripcion"), imgs: [
-        { id: 1, img: 'assets/imagenes/ingenieria/ing1.jpg' },
-        { id: 2, img: 'assets/imagenes/ingenieria/ing2.jpg' },
-        { id: 3, img: 'assets/imagenes/ingenieria/ing3.jpg' }
-      ]
-    },
-    {
-      id: 3, description: this.sanitizer.bypassSecurityTrustHtml("descripcion"), imgs: [
-        { id: 1, img: 'assets/imagenes/ingenieria/ing1.jpg' },
-        { id: 2, img: 'assets/imagenes/ingenieria/ing2.jpg' },
-        { id: 3, img: 'assets/imagenes/ingenieria/ing3.jpg' }
-      ]
-    }
-  ]
-  //Datos productos
-  items: Array<{
-    id: number,
-    title: string,
-    description: any,
-    img: string,
-    url: string
-  }> = [
-      {
-        id: 1,
-        title: 'Rack Automotriz',
-        description: 'Fabricados en Acero Estructural <br><br> Nuestros Racks permiten tener diferentes configuraciones que permiten un cuidado seguro de las autopartes y materiales durante su traslado y almacenamiento, como lo son los Racks Automotrices para carga y descarga robótica.<br><br>Nuestra obsesión por la excelencia se refleja en la elección de los materiales de primera calidad que utilizamos para fabricar cada rack.<br><br>Gracias a nuestro personal capacitado y nuestra maquinaria de vanguardia, logramos cálculos precisos para el trabajo eficaz del rack en la línea de producción y ensamble. Mediante procesos automatizados logramos fabricar en serie cualquier volumen de racks.',
-        img: 'assets/imagenes/productos/r1.jpg',
-        url: '/productos/rack-automotriz'
-      },
-      {
-        id: 2,
-        title: 'Racks de Toma Robótica',
-        description: 'Fabricados en Acero Estructural <br><br> Nuestros Racks permiten tener diferentes configuraciones que permiten un cuidado seguro de las autopartes y materiales durante su traslado y almacenamiento, como lo son los Racks Automotrices para carga y descarga robótica.<br><br>Nuestra obsesión por la excelencia se refleja en la elección de los materiales de primera calidad que utilizamos para fabricar cada rack.<br><br>Gracias a nuestro personal capacitado y nuestra maquinaria de vanguardia, logramos cálculos precisos para el trabajo eficaz del rack en la línea de producción y ensamble. Mediante procesos automatizados logramos fabricar en serie cualquier volumen de racks.',
-        img: 'assets/imagenes/productos/r2.jpg',
-        url: '/productos/racks-de-toma-robotica'
-      },
-      {
-        id: 3,
-        title: 'Racks de Ensamble',
-        description: 'Fabricados en Acero Estructural <br><br> Nuestros Racks permiten tener diferentes configuraciones que permiten un cuidado seguro de las autopartes y materiales durante su traslado y almacenamiento, como lo son los Racks Automotrices para carga y descarga robótica.<br><br>Nuestra obsesión por la excelencia se refleja en la elección de los materiales de primera calidad que utilizamos para fabricar cada rack.<br><br>Gracias a nuestro personal capacitado y nuestra maquinaria de vanguardia, logramos cálculos precisos para el trabajo eficaz del rack en la línea de producción y ensamble. Mediante procesos automatizados logramos fabricar en serie cualquier volumen de racks.',
-        img: 'assets/imagenes/productos/r3.jpg',
-        url: '/productos/racks-de-ensamble'
-      }
-    ]
   //Datons certofocaciones
   cerificaciones: { id: number, description: any, img: string }[] = [
     {
@@ -192,31 +153,6 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
   isTablet: boolean;
   // //CAROUSEL//
   ngOnInit() {
-    switch (this.comp.tipo) {
-      case 1:
-
-        this.mobile.getWidth().subscribe(width => {
-          this.isMobile = width < 768;
-          this.isTablet = width >= 768 && width < 1279;
-
-          if (this.isMobile) {
-            this.slidesPer = 1;
-            this.imgWidth = "60%";
-            this.width = "100%";
-            this.height = "auto";
-            this.imgHeight = "200px";
-          } else if (this.isTablet) {
-            this.slidesPer = 2;
-            this.imgWidth = "70%";
-            this.width = "100%";
-            this.height = "auto";
-            this.imgHeight = "200px";
-          } else {
-            this.slidesPer = 3;
-          }
-        });
-        break;
-    }
   }
 
   goTo(seccion) {
@@ -230,21 +166,21 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
 
   nextView(seccionId?) {
     switch (this.comp.tipo) {
-      case 1: { //caso manufactura
+      case 'B': { //caso manufactura
         const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID
         if (carousel?.swiper) {
           carousel.swiper.slideNext(); // Mueve al siguiente slide
         }
         break
       }
-      case 2: {//caso ingenieria
+      case 'A': {//caso ingenieria
         const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID
         if (carousel?.swiper) {
           carousel.swiper.slideNext(); // Mueve al siguiente slide
         }
         break
       }
-      case 4: {
+      case 'D': {
         const carousel = document.querySelector(`#carousel`) as any; // Selecciona el carrusel por ID
         if (carousel?.swiper) {
           carousel.swiper.slideNext(); // Mueve al siguiente slide
@@ -252,23 +188,23 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
       }
     }
   }
-  prevView(seccionId ?) {
-    switch (this.comp.tipo) {
-      case 1: {//caso manufactura
+  prevView(seccionId?) {
+    switch (this.categoria.tipo) {
+      case "A": {//caso manufactura
         const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID
         if (carousel?.swiper) {
           carousel.swiper.slidePrev(); // Mueve al slide anterior
         }
         break
       }
-      case 2: {// caso ingenieria
+      case "B": {// caso ingenieria
         const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID
         if (carousel?.swiper) {
           carousel.swiper.slidePrev(); // Mueve al slide anterior
         }
         break
       }
-      case 4: {
+      case "D": {
         const carousel = document.querySelector(`#carousel`) as any; // Selecciona el carrusel por ID
         if (carousel?.swiper) {
           carousel.swiper.slidePrev(); // Mueve al slide anterior
@@ -281,19 +217,25 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
     private sanitizer: DomSanitizer,
     private petitionsService: PetitionsService,
     private mobile: MobileService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private landingService: LandingService
   ) {
+    // this.categoria.tipo = ""
     this.activatedRoute.paramMap.subscribe(params => {
       this.comp = {
-        id: 1,
+        url: '1',
         titulo: "titulo de prueba lol UwU pog asdfasdlkf",
-        tipo: 2
+        tipo: ''
       }
 
-      this.comp.tipo = parseInt(params.get('opcion'))
+      this.comp.url = params.get('url')
+      this.landingService.obtenerCategoria(this.comp.url).subscribe((data) => {
+        this.categoria = data
+        this.comp.tipo = data.tipo
+      })
 
       switch (this.comp.tipo) {
-        case 1:
+        case 'B':
           this.isSubSection = false;
           this.isSection = false;
           this.safeDescription;
@@ -320,7 +262,7 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
             pauseOnMouseEnter: true
           }
           break;
-        case 2: {
+        case 'A': {
           this.slidesPer = 1;
           this.loop = true;
           this.speed = 1000;
@@ -345,13 +287,13 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
           }
           break;
         }
-        case 3: {
-          this.items.forEach(item => {
+        case 'C': {
+          this.categoria.sections.forEach(item => {
             item.description = this.sanitizer.bypassSecurityTrustHtml(item.description);
           });
           break;
         }
-        case 4: {
+        case 'D': {
           this.slidesPer = 1;
           this.loop = true;
           this.speed = 1000;
@@ -374,8 +316,11 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
             disableOnInteraction: true,
             pauseOnMouseEnter: true
           }
-          this.cerificaciones.forEach(certificacion => {
-            certificacion.description = this.sanitizer.bypassSecurityTrustHtml(certificacion.description);
+          console.log("Test de consola")
+          this.categoria.sections.forEach(element => {
+            element.description = "test"
+
+
           });
           break;
         }
