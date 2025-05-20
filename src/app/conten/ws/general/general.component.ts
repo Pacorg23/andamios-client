@@ -22,8 +22,10 @@ export class Categoria {
   btnText: string
   url: string
 }
-const MANUFACTURA_SECTION_ROUTE = 'manufactura/seccion';
-const MANUFACTURA_SUBSECTION_ROUTE = 'manufactura/subseccion';
+
+const GENERAL_CATEGORY = 'general';
+const GENERAL_SECTION_ROUTE = 'general/seccion';
+const GENERAL_SUBSECTION_ROUTE = 'general/subseccion';
 
 @Component({
   selector: 'app-general',
@@ -185,6 +187,14 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
         if (carousel?.swiper) {
           carousel.swiper.slideNext(); // Mueve al siguiente slide
         }
+        break
+      }
+      case 'C': {
+        const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID
+        if (carousel?.swiper) {
+          carousel.swiper.slideNext(); // Mueve al siguiente slide
+        }
+        break
       }
     }
   }
@@ -206,9 +216,19 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
       }
       case "D": {
         const carousel = document.querySelector(`#carousel`) as any; // Selecciona el carrusel por ID
+        console.log("carousel")
+        console.log(carousel)
         if (carousel?.swiper) {
           carousel.swiper.slidePrev(); // Mueve al slide anterior
         }
+        break
+      }
+      case "C": {
+        const carousel = document.querySelector(`#carousel-${seccionId}`) as any; // Selecciona el carrusel por ID
+        if (carousel?.swiper) {
+          carousel.swiper.slidePrev(); // Mueve al slide anterior
+        }
+        break
       }
     }
   }
@@ -228,6 +248,8 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
         tipo: ''
       }
 
+      const title = params.get('URL');
+      const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
       this.comp.url = params.get('url')
       this.landingService.obtenerCategoria(this.comp.url).subscribe((data) => {
         this.categoria = data
@@ -261,6 +283,31 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
             disableOnInteraction: true,
             pauseOnMouseEnter: true
           }
+
+          const title = params.get('URL');
+          const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
+          console.log("entro caso B")
+          if (currentRoute.includes(GENERAL_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
+            // this.landingService.obtenerSubSeccionConten(title).subscribe((subseccionMain) => {
+            //   this.landingService = subseccionMain[0]
+            //   this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccionMain.description);
+            // });
+            // this.isSubSection = true;
+            // this.isSection = false;
+          } else if (currentRoute.includes(GENERAL_SECTION_ROUTE) && !_.isEmpty(title)) {
+            console.log("entro")
+            this.landingService.obtenerSeccionConten(title).subscribe((seccionMain) => {
+              this.seccion = seccionMain[0]
+            });
+            this.isSection = true;
+            this.isSubSection = false;
+          } else {
+            this.landingService.obtenerCategoria(GENERAL_CATEGORY).subscribe((categoria) => {
+              this.categoria = categoria
+            });
+            this.isSubSection = false;
+            this.isSection = false;
+          }
           break;
         case 'A': {
           this.slidesPer = 1;
@@ -288,6 +335,28 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
           break;
         }
         case 'C': {
+          this.slidesPer = 1;
+          this.loop = true;
+          this.speed = 1000;
+          this.brakePoints = {
+            640: {
+              slidesPerView: 1,
+            },
+            1024: {
+              slidesPerView: 1,
+            },
+          };
+          this.width = "100%";
+          this.height = "auto";
+          this.imgWidth = "100%";
+          this.imgHeight = "500px";
+          this.mainUrl = '/';
+          this.destinyUrl = '/';
+          this.autoplay = {
+            delay: 3000,
+            disableOnInteraction: true,
+            pauseOnMouseEnter: true
+          };
           this.categoria.sections.forEach(item => {
             item.description = this.sanitizer.bypassSecurityTrustHtml(item.description);
           });
@@ -316,12 +385,7 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
             disableOnInteraction: true,
             pauseOnMouseEnter: true
           }
-          console.log("Test de consola")
-          this.categoria.sections.forEach(element => {
-            element.description = "test"
 
-
-          });
           break;
         }
       }

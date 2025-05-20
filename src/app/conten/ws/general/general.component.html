@@ -119,9 +119,10 @@
   }
   @else {
   <div class="contenido-type-B">
-    @for(seccion of categoria.sections; track seccion){
+    @for(seccion of categoria?.sections; track seccion){
     <div class="seccion-type-B">
       <div class="seccion-titulo-type-B">
+        <img id="background-title-type-B" src="assets/background-section.png" alt="">
         <h2>{{seccion.title}}</h2>
       </div>
       <div class="img-carrousel-type-B">
@@ -165,7 +166,8 @@
   }
 
 @case('C'){
-  <div class="products-type-C">
+  <div class="contenido-type-C">
+
     @for(design of categoria.sections; track design) {
         <div class="item-type-C">
           <div class="img-carrousel-type-C">
@@ -212,7 +214,7 @@
     <div class="carousel-container-type-D">
       <!-- CAROUSEL ELEMENT -->
       <swiper-container autoplay="false" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
-        [ngStyle]="{ width: width }" id="carousel-type-D">
+        [ngStyle]="{ width: width }" id="carousel">
         <!-- SLIDES -->
         @for(slide of categoria.sections; track slide){
         <swiper-slide>

@@ -33,9 +33,16 @@
           
       }
     <div class="opc">
-      <a [routerLink]="category.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        {{ category.title }}
-      </a>
+      @if (category.is_default){
+        <a [routerLink]="category.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          {{ category.title }}
+        </a>
+      } @else {
+        <a [routerLink]="'/conten/general/' + category.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          {{ category.title }}
+        </a>
+
+      }
       @if (category.has_sections && category.tipo =='B') {
       <div class="subopc">
         @for (subcategory of category.secciones; track subcategory) {
@@ -45,7 +52,7 @@
               {{ subcategory.title }}
             </a>
           } @else{
-            <a [routerLink]="'/conten/general/' + subcategory.url">
+            <a [routerLink]="'/conten/general/seccion/' + subcategory.url">
               {{ subcategory.title }}
             </a>
 

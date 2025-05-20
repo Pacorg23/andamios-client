@@ -71,7 +71,6 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
     });
     this.contenService.obtenerCategoria("nuestras-certificaciones").subscribe((categoria) => {
       this.Secciones= categoria.sections
-      console.log(this.Secciones)
     });
   }
 
