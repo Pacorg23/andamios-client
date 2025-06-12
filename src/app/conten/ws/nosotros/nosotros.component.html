@@ -2,15 +2,15 @@
     <div class="cover-photo">
         <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
-                @for (slide of slides; track slide ; let isFirst = $first) {
+                @for (slide of safeSlides; track slide ; let isFirst = $first) {
                 <div class="carousel-item" [class.active]="isFirst">
                     @if(!isMobile && !isTablet) {
-                    <img [src]="slide.img" class="d-block w-100" alt="...">
+                    <img [src]="slide.file" class="d-block w-100" alt="...">
                     }@else {
-                    <img [src]="slide.imgResponsive" class="d-block w-100" alt="...">
+                    <img [src]="slide.fileResponsive" class="d-block w-100" alt="...">
                     }
-                    @if(slide.button){
-                    <a href="javascript:void(0)" (click)="scrollToElement('plantas')">CONOCE MÁS</a>
+                    @if(slide.needsAction){
+                    <a href="javascript:void(0)" (click)="goToLink(slide.action)">CONOCE MÁS</a>
                     }
                 </div>
                 }
@@ -103,9 +103,9 @@
     <section class="plantas" id="plantas">
         <p>Nuestras plantas</p>
         <div class="grid-plantas">
-            @for(planta of plantas; track planta) {
+            @for(planta of plantasSafe; track planta) {
             <div class="set">
-                <img src="{{planta.img}}" alt="">
+                <img [src]="planta.imgSafe" alt="">
                 <div class="description">
                     <p class="size">{{planta.size}}</p>
                     <p class="location">{{planta.location}}</p>
@@ -114,6 +114,8 @@
             }
         </div>
     </section>
-
-    <!--<img style="height: auto; width: 100%;" src="assets/imagenes/Conten-nosotros-2.jpg" alt="">-->
 </div>
+
+@if (loading) {
+  <app-loading-conten></app-loading-conten>
+}

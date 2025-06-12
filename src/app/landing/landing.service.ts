@@ -15,7 +15,11 @@ export class LandingService {
   private URL: string = ""
 
   constructor(private http: HttpClient) {
-    this.URL = `${ENV_CONSTANTS.API_URL}:${ENV_CONSTANTS.PORT}/${SECTION_NAME}/`
+    if (!ENV_CONSTANTS.PRODUCTION) {
+      this.URL = `${ENV_CONSTANTS.DEV_URL}:${ENV_CONSTANTS.PORT}/${SECTION_NAME}/`;
+    } else {
+      this.URL = `${ENV_CONSTANTS.API_URL}/${SECTION_NAME}/`;
+    }
   }
 
   obtenerArchivo(origen: string): Observable<Archivo> {

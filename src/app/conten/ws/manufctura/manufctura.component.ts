@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { LandingService } from '../../conten.service';
+import { ContenService } from '../../conten.service';
 import _ from 'lodash';
 // import function to register Swiper custom elements
 import { register } from 'swiper/element/bundle';
@@ -310,7 +310,7 @@ export class ManufcturaComponent {
     private sanitizer: DomSanitizer,
     private petitionsService: PetitionsService,
     private mobile: MobileService,
-    private contenService: LandingService
+    private contenService: ContenService
 
   ) {
     this.route.paramMap.subscribe(params => {

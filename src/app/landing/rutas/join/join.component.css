@@ -125,6 +125,11 @@ label {
   width: 100%;
 }
 
+.trainee {
+  width: 500px;
+  object-fit: cover;
+}
+
 @media only screen and (min-width: 200px) and (max-width: 749px){
 
   .contenedor{
@@ -155,7 +160,7 @@ label {
   }
 
   .trainee{
-    width: 200px;
+    width: 300px;
     height: 200px;
   }
 

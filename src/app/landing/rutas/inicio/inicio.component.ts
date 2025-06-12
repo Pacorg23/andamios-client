@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class InicioComponent {
 
-  constructor(private seo: SeoService, private router:Router) {
+  constructor(private seo: SeoService, private router: Router) {
     afterRender(() => {
       window.scrollTo(0, 0);
       this.seo.setTitle("Andamios Atlas");
@@ -25,7 +25,12 @@ export class InicioComponent {
     })
   }
 
-  irA(direccion:string){
+  /**
+   * @description Método para navegar a una ruta específica.
+   * @param {string} direccion - La dirección a la que se desea navegar.
+   * @returns void
+   */
+  public irA(direccion: string): void {
     this.router.navigate([direccion])
   }
 

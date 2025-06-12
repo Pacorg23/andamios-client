@@ -10,10 +10,14 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   title = 'Andamios Atlas';
+  protected isRendered = false;
 
   constructor(private renderer: Renderer2) {
     afterRender(() => {
-      this.loadChatBot();
+      if(!this.isRendered){
+        this.isRendered = true;
+        this.loadChatBot();
+      }
     });
   }
 

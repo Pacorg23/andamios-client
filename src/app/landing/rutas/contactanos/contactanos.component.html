@@ -39,7 +39,7 @@
       <label for="" class="form-label">Correo electrónico</label>
       <input type="text" formControlName="email" class="form-control">
       @if(formulario.get('email').invalid && formulario.get('email').touched || email){
-      
+
         @if(formulario.get('email').hasError('required')){
           <div class="error">
             El correo es necesario.

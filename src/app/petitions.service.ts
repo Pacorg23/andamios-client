@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import _ from 'lodash';
 
 @Injectable({
@@ -8,7 +8,7 @@ import _ from 'lodash';
 })
 export class PetitionsService {
 
-  httpOptions = {
+  public httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -16,65 +16,88 @@ export class PetitionsService {
 
   constructor(private sanitizer: DomSanitizer) { }
 
-  sanitizar(cadena) {
-    /*cadena = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + cadena);
-    return cadena*/
+  /**
+   * @description Sanitiza una cadena para que sea segura para su uso en URLs.
+   * @param cadena La cadena a sanitizar.
+   * @return Un objeto SafeUrl si la cadena es válida, o null si la cadena es nula o indefinida.
+   */
+  public sanitizar(cadena: any): any | null {
     if (cadena) {
-      //cadena = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + cadena);
       cadena = this.sanitizer.bypassSecurityTrustUrl(cadena);
-      return cadena
+      return cadena;
     } else {
       return null;
     }
   }
 
-  sanitizarPdf(cadena) {
-    if (cadena) {
-      const byteCharacters = atob(cadena);
-      const byteNumbers = new Array(byteCharacters.length);
+  /**
+   * @description Convierte una cadena en base64 a un objeto URL seguro para descargar como PDF.
+   * @param cadena La cadena base64 del PDF.
+   * @returns Una URL temporal (string) para descargar el archivo, o null si la entrada es inválida.
+   */
+  public sanitizarPdf(cadena: string | null | undefined): string | null {
+    if (!cadena) return null;
 
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
+    const byteCharacters = atob(cadena);
+    const byteNumbers = new Array(byteCharacters.length);
 
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'application/pdf' });
-
-      // Crear un objeto URL a partir del Blob
-      const url = URL.createObjectURL(blob);
-
-      return url
-      //return cadena
-    } else {
-      return null;
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+    return URL.createObjectURL(blob);
   }
 
-  sanitizarPDF_main(cadena) {
+  /**
+   * @description Sanitiza una cadena base64 como un recurso PDF seguro para insertar en un iframe o embed.
+   * @param cadena La cadena base64 del PDF.
+   * @returns Un objeto SafeResourceUrl que puede usarse de forma segura en el DOM.
+   */
+  public sanitizarPDF_main(cadena: string): SafeUrl{
     const pdfUrl = `data:application/pdf;base64,${cadena}`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(pdfUrl);
   }
 
-  sanitizeHtml(content: string): SafeHtml {
+  /**
+   * @description Sanitiza contenido HTML para evitar inyecciones y permitir mostrarlo en el DOM.
+   * @param content El contenido HTML a sanitizar.
+   * @returns Un objeto SafeHtml que puede insertarse de forma segura en el DOM.
+   */
+  public sanitizeHtml(content: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(content);
   }
 
-  formatToDashes(input: string): string {
-    // Primero elimina espacios de los extremos
+  /**
+   * @description Convierte una cadena a minúsculas, elimina espacios y los reemplaza por guiones.
+   * @param input La cadena a formatear.
+   * @returns La cadena formateada con guiones.
+   */
+  public formatToDashes(input: string): string {
     const trimmed = _.lowerCase(_.trim(input));
-    // Luego reemplaza los espacios intermedios por "-"
     return _.replace(trimmed, /\s+/g, '-');
   }
 
-  formatToSpaces(input: string): string {
-    // Reemplaza los guiones por espacios
+  /**
+   * @description Convierte guiones en espacios y elimina espacios extremos.
+   * @param input La cadena con guiones.
+   * @returns La cadena formateada con espacios.
+   */
+  public formatToSpaces(input: string): string {
     const replaced = _.replace(input, /-/g, ' ');
-    // Luego elimina espacios de los extremos
     return _.trim(replaced);
   }
 
-  readyToDownload(data: any, filename: string) {
+  /**
+   * @description Crea un enlace temporal y descarga un archivo PDF desde una cadena base64.
+   * @param data Cadena base64 del archivo.
+   * @param filename Nombre del archivo a descargar.
+   */
+  public readyToDownload(data: string, filename: string): void {
     const url = this.sanitizarPdf(data);
+    if (!url) return;
+
     const a = document.createElement('a');
     a.href = url;
     a.download = filename || 'download.pdf';
