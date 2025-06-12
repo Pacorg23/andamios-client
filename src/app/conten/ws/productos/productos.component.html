@@ -4,8 +4,12 @@
   </div>
 
   <div class="contenido">
-    @for(producto of Secciones; track producto) {
+    @for(producto of secciones; track producto) {
     <div class="item">
+      <div class="title-container">
+        <img id="background-title" src="assets/background-section.png" alt="">
+        <h2 class="title">{{producto.title}}</h2>
+      </div>
       <div class="img-carrousel">
         <div class="prev">
           <button (click)="prevView(producto.id)">
@@ -40,3 +44,7 @@
     }
   </div>
 </div>
+
+@if (loading) {
+  <app-loading-conten></app-loading-conten>
+}

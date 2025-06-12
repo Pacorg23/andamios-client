@@ -3,8 +3,9 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MobileService } from '../../../mobile.service';
 import { register } from 'swiper/element/bundle';
-import { LandingService } from '../../conten.service';
+import { ContenService } from '../../conten.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 register();
 
 @Component({
@@ -18,9 +19,9 @@ register();
 export class ContenNavbarComponent {
 
   mainUrl = '/conten/';
-  icon:string = 'menu'
-  
-  navbar:any
+  icon: string = 'menu'
+
+  navbar: any
   configCategories = [
     {
       name: 'NOSOTROS',
@@ -94,27 +95,43 @@ export class ContenNavbarComponent {
   isMobile: boolean;
   isTablet: boolean;
 
-  constructor(private mobile: MobileService, private accionesService: LandingService) {
-    
-    this.accionesService.obtenerNavbar().subscribe((data) => {
-      this.navbar = data;
-      console.log("this.navbar")
-
-      console.log(this.navbar)
-    })
-  }
+  constructor(private mobile: MobileService, private accionesService: ContenService) { }
 
   ngOnInit() {
+    this.mobileView();
+    this.getNavbar();
+  }
+
+  /**
+   * @description Determina si el dispositivo es móvil o tablet y ajusta las variables isMobile e isTablet.
+   * @returns {void}
+   */
+  public mobileView(): void {
     this.mobile.getWidth().subscribe(width => {
       this.isMobile = width < 768;
       this.isTablet = width >= 768 && width < 1279;
     });
-    this.accionesService.obtenerNavbar().subscribe((data) => {
-      this.navbar = data;
-    })
   }
 
-  toggleIcon(){
+  /**
+   * @description Obtiene el menú de navegación desde el servicio y lo asigna a la variable navbar.
+   * En caso de error, muestra un mensaje de alerta utilizando SweetAlert2.
+   * @returns {void}
+   */
+  public getNavbar(): void {
+    this.accionesService.obtenerNavbar().subscribe((data) => {
+      this.navbar = data;
+    }, (error) => {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo cargar el menú',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+    });
+  }
+
+  toggleIcon() {
     if (this.icon == 'close') {
       this.icon = 'menu'
     } else if (this.icon == 'menu') {

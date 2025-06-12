@@ -9,7 +9,7 @@ import _ from 'lodash';
 import { register } from 'swiper/element/bundle';
 import { PetitionsService } from '../../../petitions.service';
 import { MobileService } from '../../../mobile.service';
-import { LandingService } from '../../conten.service';
+import { ContenService } from '../../conten.service';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 import { Category } from '../../models/category';
 import { ThisReceiver } from '@angular/compiler';
@@ -218,7 +218,7 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
     private petitionsService: PetitionsService,
     private mobile: MobileService,
     private route: ActivatedRoute,
-    private landingService: LandingService
+    private landingService: ContenService
   ) {
     // this.categoria.tipo = ""
     this.activatedRoute.paramMap.subscribe(params => {
@@ -316,7 +316,6 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
             disableOnInteraction: true,
             pauseOnMouseEnter: true
           }
-          console.log("Test de consola")
           this.categoria.sections.forEach(element => {
             element.description = "test"
 

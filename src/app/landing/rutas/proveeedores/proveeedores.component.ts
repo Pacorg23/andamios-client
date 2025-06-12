@@ -7,6 +7,18 @@ import { ActivatedRoute } from '@angular/router';
 import { fadeInAnimation } from '../../../fadeIn';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SeoService } from '../../../seo.service';
+import _ from 'lodash';
+
+const ALTA = 'alta';
+const EFACTURA = 'efactura';
+const COMUNICADOS = 'comunicados';
+const PROVEEDORES = 'proveedores';
+const ZERO = '0';
+const ZERO_INDEX = 0;
+const DATE_INDEX = 'T';
+const TWO = 2;
+const SECTION = 'seccion';
+const EMPTY_STRING = '';
 
 @Component({
   selector: 'app-proveeedores',
@@ -19,14 +31,15 @@ import { SeoService } from '../../../seo.service';
 export class ProveeedoresComponent {
 
   archivo: any;
-  archivoB64: any
-  accion: any
-  comunicados: Comunicado[] = []
-  loading: boolean = false
+  archivoB64: any;
+  accion: any;
+  comunicados: Comunicado[] = [];
+  loading: boolean = false;
+  fileName: string = _.upperCase(PROVEEDORES);
 
   constructor(private landingService: LandingService,
     private helpers: PetitionsService, private activatedRoute: ActivatedRoute,
-  private seo:SeoService) {
+    private seo: SeoService) {
 
 
     afterRender(() => {
@@ -34,16 +47,16 @@ export class ProveeedoresComponent {
     })
     this.loading = true;
     this.activatedRoute.paramMap.subscribe(params => {
-      this.accion = params.get('seccion');
-      this.seo.setTitle("Proveedores | "+ this.accion.toUpperCase());
-      if (this.accion === 'alta' || this.accion === 'efactura') {
+      this.accion = params.get(SECTION);
+      this.seo.setTitle("Proveedores | " + this.accion.toUpperCase());
+      if (_.isEqual(this.accion, ALTA) || _.isEqual(this.accion, EFACTURA)) {
         this.obtenerArchivo();
         this.seo.setKeywords([
           "Proveedores | " + this.accion,
           "Andamios Atlas pone disposición de sus proveedores los formatos necesarios para realizar trámites y gestiones con la empresa.",
           "proveedores/" + this.accion
         ])
-      } else if (this.accion === 'comunicados') {
+      } else if (_.isEqual(this.accion, COMUNICADOS)) {
         this.obtenerComunicados();
         this.seo.setKeywords([
           "Proveedores | Comunicados",
@@ -55,57 +68,38 @@ export class ProveeedoresComponent {
     })
   }
 
-  obtenerArchivo() {
-    this.landingService.obtenerArchivo('proveedores').subscribe((res: any) => {
+  public obtenerArchivo(): void {
+    this.landingService.obtenerArchivo(PROVEEDORES).subscribe((res: any) => {
       this.archivo = this.helpers.sanitizarPdf(res.file);
       this.archivoB64 = res.file;
       this.loading = false;
     });
   }
 
-  obtenerComunicados() {
+  public obtenerComunicados(): void {
     this.landingService.obtenerComunicados().subscribe((res: any) => {
       res.forEach(comunicado => {
-        (comunicado.createdAt + '').indexOf('T')>=0 ?comunicado.createdAt= this.formatDateToDDMMYYYY(comunicado.createdAt): comunicado.createdAt;
+        (comunicado.createdAt + EMPTY_STRING).indexOf(DATE_INDEX) >= ZERO_INDEX
+          ? comunicado.createdAt = this.formatDateToDDMMYYYY(comunicado.createdAt) : comunicado.createdAt;
       });
       this.comunicados = res;
       this.loading = false
     })
   }
-  formatDateToDDMMYYYY(isoDateString: string): string {
+
+  public formatDateToDDMMYYYY(isoDateString: string): string {
     const date = new Date(isoDateString);
 
     // Obtener día, mes y año
-    const day = date.getUTCDate().toString().padStart(2, '0'); // Asegura que siempre tenga 2 dígitos
-    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
+    const day = date.getUTCDate().toString().padStart(TWO, ZERO); // Asegura que siempre tenga 2 dígitos
+    const month = (date.getUTCMonth() + 1).toString().padStart(TWO, ZERO); // Los meses empiezan desde 0
     const year = date.getUTCFullYear();
 
     // Formatear en dd/mm/yyyy
     return `${day}/${month}/${year}`;
   }
-  downloadFile(fileName: string, base64Content: string): void {
-    const byteCharacters = atob(base64Content);
-    const byteNumbers = new Array(byteCharacters.length);
 
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: 'application/pdf' });
-
-    // Crear un objeto URL a partir del Blob
-    const url = URL.createObjectURL(blob);
-
-    // Crear un enlace temporal
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName;
-
-    // Simular clic en el enlace temporal
-    link.dispatchEvent(new MouseEvent('click'));
-
-    // Liberar el objeto URL
-    URL.revokeObjectURL(url);
+  public downloadPdf(): void {
+    this.helpers.readyToDownload(this.archivoB64, this.fileName);
   }
 }
