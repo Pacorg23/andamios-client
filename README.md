@@ -25,3 +25,15 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## BEFORE
+
+Before compile is needed to go to environment.ts and make production true to connect correctly with api
+
+## COMPILE
+
+docker build --no-cache -t andamios-client .
+
+## GENERATE DOCKER
+
+docker save -o andamios-client.tar andamios-client
