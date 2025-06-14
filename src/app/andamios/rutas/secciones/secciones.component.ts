@@ -7,6 +7,7 @@ import { Seccion } from '../../models/seccion';
 import { PetitionsService } from '../../../petitions.service';
 import { fadeInAnimation } from '../../../fadeIn';
 import { SpinnerComponent } from '../../../spinner/spinner.component';
+import Swal from 'sweetalert2';
 
 const PDF_PREFIX = '-DOC.pdf';
 
@@ -20,8 +21,8 @@ const PDF_PREFIX = '-DOC.pdf';
 })
 export class SeccionesComponent {
 
-  seccion: Seccion = new Seccion();
-  wip: boolean = false;
+  public seccion: Seccion = new Seccion();
+  public wip: boolean = false;
 
   constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer,
     private andamiosService: AndamiosService, private petitionService: PetitionsService) { }
@@ -35,12 +36,11 @@ export class SeccionesComponent {
    * @description Inicializa la seccion busca si es una seccion o subseccion y obtiene la informacion
    * @returns {void}
    */
-  initSection(): void {
+  public initSection(): void {
     this.wip = true;
     this.route.paramMap.subscribe(params => {
       const name = params.get('name');
       this.getSection(name);
-      this.wip = false;
     });
   }
 
@@ -49,37 +49,45 @@ export class SeccionesComponent {
    * @param {string} name - Nombre de la seccion
    * @returns {void}
    */
-  getSection(name: string): void {
+  public getSection(name: string): void {
     this.andamiosService.obtenerSeccion(name).subscribe((data) => {
       this.seccion = data;
       this.wip = false;
+    }, error => {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo cargar la sección',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        this.wip = false;
+      });
     });
   }
-
-  /**
-   * @description Obtiene la descripcion de la seccion de manera segura
-   * @returns {void}
-   */
-  /*get sanitizedDescription(): SafeHtml {
-    return this.petitionService.sanitizeHtml(this.seccion.descripcion);
-  }*/
 
   /**
    * @description Obtiene un objeto descargable del pdf de la seccion
    * @param {string} data - Cadena de texto en base64 que cointiene un pdf
    * @returns {void}
    */
-  downloadPdf(data: string): void {
+  public downloadPdf(data: string): void {
     this.petitionService.readyToDownload(data, this.seccion.nombre + PDF_PREFIX);
   }
 
-  get defaultImage(): string | undefined {
+  /**
+   * @description Obtiene la imagen por defecto de la seccion
+   * @returns {string | undefined} - Retorna la primera imagen de la seccion o undefined si no hay imagenes
+   */
+  public get defaultImage(): string | undefined {
     return this.seccion?.images?.length ? this.seccion.images[0]?.file : undefined;
   }
 
-  ngOnDestroy() {
+  /**
+   * @description Limpia la seccion al destruir el componente
+   * @returns {void}
+   */
+  public ngOnDestroy(): void {
     this.seccion = null;
   }
-
 }
 
