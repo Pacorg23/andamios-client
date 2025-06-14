@@ -27,46 +27,47 @@
     </div>
     @for (category of navbar; track category; let idx = $index) {
     @if (category.is_active) {
-      @if(idx == 5){
-        <div class="opc">
-        </div>
-          
-      }
+    @if(idx == 5){
+    <div class="opc">
+    </div>
+
+    }
     <div class="opc">
       @if (category.is_default){
-        <a [routerLink]="category.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          {{ category.title }}
-        </a>
+      <a [routerLink]="category.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        {{ category.title }}
+      </a>
       } @else {
-        <a [routerLink]="'/conten/general/' + category.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          {{ category.title }}
-        </a>
+      <a [routerLink]="'/conten/general/' + category.url" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        {{ category.title }}
+      </a>
 
       }
       @if (category.has_sections && category.tipo =='B') {
       <div class="subopc">
         @for (subcategory of category.secciones; track subcategory) {
-          @if(category.is_default){
-            
-            <a [routerLink]="'/conten/manufactura/seccion/' + subcategory.url">
-              {{ subcategory.title }}
-            </a>
-          } @else{
-            <a [routerLink]="'/conten/general/seccion/' + subcategory.url">
-              {{ subcategory.title }}
-            </a>
+        @if(category.is_default){
 
-          }
+        <a [routerLink]="'/conten/manufactura/seccion/' + subcategory.url">
+          {{ subcategory.title }}
+        </a>
+        } @else{
+        <a [routerLink]="'/conten/general/seccion/' + subcategory.url">
+          {{ subcategory.title }}
+        </a>
+
+        }
         }
       </div>
       }
-      
+
 
     </div>
-    
+
     }
     }
-    
+
   </section>
 </nav>
 } @else {
@@ -83,12 +84,20 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         @for(category of navbar; track category) {
-        @if(category.is_active){
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="category.url" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">{{category.name}}</a>
-        </li>
-        }
+          @if(category.is_active){
+            @if (category.is_default){
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="category.url" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">{{category.title}}</a>
+            </li>
+            } @else {
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="'/conten/general/' + category.url"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{category.title}}</a>
+            </li>
+          
+            }
+          }
         }
         <li class="nav-item socials">
           <div class="social">

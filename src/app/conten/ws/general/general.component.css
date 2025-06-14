@@ -15,7 +15,7 @@
   font-weight: 600;
 }
 
-.carousel-item-type-B {
+.carousel-item {
   height: 400px;
 }
 
@@ -41,7 +41,7 @@
   margin: 0px;
 }
 
-.carousel-item-type-B img {
+.carousel-item img {
   width: 100%;
   height: 100%;
 }
@@ -250,7 +250,7 @@ mat-icon {
     gap: 20px;
   }
 
-  .carousel-item-type-B {
+  .carousel-item {
     height: 300px;
   }
 

@@ -9,10 +9,11 @@ import _ from 'lodash';
 import { register } from 'swiper/element/bundle';
 import { PetitionsService } from '../../../petitions.service';
 import { MobileService } from '../../../mobile.service';
-import { ContenService } from '../../conten.service';
+import { LandingService } from '../../conten.service';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 import { Category } from '../../models/category';
 import { ThisReceiver } from '@angular/compiler';
+import { Section } from '../../models/seccion';
 // register Swiper custom elements
 register();
 export class Categoria {
@@ -38,7 +39,8 @@ const GENERAL_SUBSECTION_ROUTE = 'general/subseccion';
 })
 export class GeneralComponent {
   categoria: Category;
-  categoriaB: Category;
+  seccion: Section;
+  subseccion: Section;
   comp: { url: string, titulo: string, tipo: string }
   //Datos de manufactura conten
   secciones = [
@@ -84,28 +86,28 @@ export class GeneralComponent {
     }
   ];
 
-  subSeccion = {
-    id: 1,
-    name: 'Corte Laser para Tubo',
-    imgs: [
-      { id: 1, img: 'assets/imagenes/manufactura/CorteLaser/corte1.jpeg' },
-      { id: 2, img: 'assets/imagenes/manufactura/CorteLaser/corte2.jpeg' },
-      { id: 3, img: 'assets/imagenes/manufactura/CorteLaser/corte3.jpeg' }
-    ],
-    description: "Nuestras máquinas de corte láser para tubo nos permiten ofrecer cortes con una gran precisión, cortar geometrías complejas en tubos redondos, cuadrado, rectangular y ovales con tiempos de proceso muy rápidos, hasta 5” de diámetro. <br> • Podemos crear cualquier característica de corte o geometría en los tubos. <br> • Tubos redondos, cuadrado, rectangular y ovales. <br> • Agujeros, ranuras, chaflanes, filetes. <br> • Corte pliegue para posteriormente doblar un tubo. <br> • Diferentes tipos de materiales (acero al carbón, acero inoxidable, acero galvanizado, aluminio, cobre, latón). <br> • Fabricación de piezas que tienen diferentes procesos en una sola máquina. <br> • Mejor precisión. <br> • Mejor calidad de corte. <br> • Mejores tiempos de proceso."
-  }
+  // subSeccion = {
+  //   id: 1,
+  //   name: 'Corte Laser para Tubo',
+  //   imgs: [
+  //     { id: 1, img: 'assets/imagenes/manufactura/CorteLaser/corte1.jpeg' },
+  //     { id: 2, img: 'assets/imagenes/manufactura/CorteLaser/corte2.jpeg' },
+  //     { id: 3, img: 'assets/imagenes/manufactura/CorteLaser/corte3.jpeg' }
+  //   ],
+  //   description: "Nuestras máquinas de corte láser para tubo nos permiten ofrecer cortes con una gran precisión, cortar geometrías complejas en tubos redondos, cuadrado, rectangular y ovales con tiempos de proceso muy rápidos, hasta 5” de diámetro. <br> • Podemos crear cualquier característica de corte o geometría en los tubos. <br> • Tubos redondos, cuadrado, rectangular y ovales. <br> • Agujeros, ranuras, chaflanes, filetes. <br> • Corte pliegue para posteriormente doblar un tubo. <br> • Diferentes tipos de materiales (acero al carbón, acero inoxidable, acero galvanizado, aluminio, cobre, latón). <br> • Fabricación de piezas que tienen diferentes procesos en una sola máquina. <br> • Mejor precisión. <br> • Mejor calidad de corte. <br> • Mejores tiempos de proceso."
+  // }
 
-  seccion = {
-    id: 2,
-    name: 'Corte Laser Placa y Lamina',
-    subSecciones: [
-      { id: 1, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa1.jpg' },
-      { id: 2, name: 'Item 2', img: 'assets/imagenes/manufactura/CortePlaca/placa2.jpg' },
-      { id: 3, name: 'Item 3', img: 'assets/imagenes/manufactura/CortePlaca/placa3.jpg' },
-      { id: 4, name: 'Item 4', img: 'assets/imagenes/manufactura/CortePlaca/placa4.jpg' },
-      { id: 5, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa5.jpg' }
-    ]
-  }
+  // seccion = {
+  //   id: 2,
+  //   name: 'Corte Laser Placa y Lamina',
+  //   subSecciones: [
+  //     { id: 1, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa1.jpg' },
+  //     { id: 2, name: 'Item 2', img: 'assets/imagenes/manufactura/CortePlaca/placa2.jpg' },
+  //     { id: 3, name: 'Item 3', img: 'assets/imagenes/manufactura/CortePlaca/placa3.jpg' },
+  //     { id: 4, name: 'Item 4', img: 'assets/imagenes/manufactura/CortePlaca/placa4.jpg' },
+  //     { id: 5, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa5.jpg' }
+  //   ]
+  // }
 
   //Datons certofocaciones
   cerificaciones: { id: number, description: any, img: string }[] = [
@@ -160,9 +162,9 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
   goTo(seccion) {
     seccion = this.petitionsService.formatToDashes(seccion);
     if (_.isEmpty(seccion)) {
-      this.router.navigate(['/conten/manufactura']);
+      this.router.navigate(['/conten/general']);
     } else {
-      this.router.navigate([`/conten/manufactura/subseccion/${seccion}`]);
+      this.router.navigate([`/conten/general/subseccion/${seccion}`]);
     }
   }
 
@@ -216,8 +218,6 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
       }
       case "D": {
         const carousel = document.querySelector(`#carousel`) as any; // Selecciona el carrusel por ID
-        console.log("carousel")
-        console.log(carousel)
         if (carousel?.swiper) {
           carousel.swiper.slidePrev(); // Mueve al slide anterior
         }
@@ -238,158 +238,167 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
     private petitionsService: PetitionsService,
     private mobile: MobileService,
     private route: ActivatedRoute,
-    private landingService: ContenService
+    private landingService: LandingService
   ) {
-    // this.categoria.tipo = ""
     this.activatedRoute.paramMap.subscribe(params => {
+      // Inicializa datos de componente con valores predeterminados
       this.comp = {
         url: '1',
-        titulo: "titulo de prueba lol UwU pog asdfasdlkf",
+        titulo: "Init title",
         tipo: ''
       }
 
-      const title = params.get('URL');
       const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
-      this.comp.url = params.get('url')
-      this.landingService.obtenerCategoria(this.comp.url).subscribe((data) => {
-        this.categoria = data
-        this.comp.tipo = data.tipo
-      })
+      const currentRouteSplit = currentRoute.split('/');     
+      const title = currentRoute.split('/')[currentRouteSplit.length-1]; 
+      if (currentRoute.includes(GENERAL_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
+        this.landingService.obtenerSubSeccionConten(title).subscribe((subseccionMain) => {
 
-      switch (this.comp.tipo) {
-        case 'B':
-          this.isSubSection = false;
-          this.isSection = false;
-          this.safeDescription;
-          this.slidesPer = 3;
-          this.loop = true;
-          this.speed = 1000;
-          this.brakePoints = {
-            640: {
-              slidesPerView: 1,
-            },
-            1024: {
-              slidesPerView: 2,
-            },
-          };
-          this.width = "100%";
-          this.height = "auto";
-          this.imgWidth = "90%";
-          this.imgHeight = "300px";
-          this.mainUrl = '/';
-          this.destinyUrl = '/';
-          this.autoplay = {
-            delay: 3000,
-            disableOnInteraction: true,
-            pauseOnMouseEnter: true
+          this.subseccion = subseccionMain[0]
+          this.comp.tipo = 'B'
+          this.categoria = {title : "",
+            tipo : 'B',
+            description: "",
+            imgs: []
+
           }
+          this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccion.description);
+        });
+        this.isSubSection = true;
+        this.isSection = false;
+      } else if (currentRoute.includes(GENERAL_SECTION_ROUTE) && !_.isEmpty(title)) {
+        this.landingService.obtenerSeccionConten(title).subscribe((seccionMain) => {
+          this.seccion = seccionMain[0]
+          this.comp.tipo = 'B'
+          this.categoria = {title : "",
+            tipo : 'B',
+            description: "",
+            imgs: []
 
-          const title = params.get('URL');
-          const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
-          console.log("entro caso B")
-          if (currentRoute.includes(GENERAL_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
-            // this.landingService.obtenerSubSeccionConten(title).subscribe((subseccionMain) => {
-            //   this.landingService = subseccionMain[0]
-            //   this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccionMain.description);
-            // });
-            // this.isSubSection = true;
-            // this.isSection = false;
-          } else if (currentRoute.includes(GENERAL_SECTION_ROUTE) && !_.isEmpty(title)) {
-            console.log("entro")
-            this.landingService.obtenerSeccionConten(title).subscribe((seccionMain) => {
-              this.seccion = seccionMain[0]
-            });
-            this.isSection = true;
-            this.isSubSection = false;
-          } else {
-            this.landingService.obtenerCategoria(GENERAL_CATEGORY).subscribe((categoria) => {
-              this.categoria = categoria
-            });
+          }
+        });
+        this.isSection = true;
+        this.isSubSection = false;
+      } else {
+        this.landingService.obtenerCategoria(title).subscribe((categoria) => {
+          this.categoria = categoria
+          this.comp.tipo = categoria.tipo
+        });
+        this.isSubSection = false;
+        this.isSection = false;
+
+        switch (this.comp.tipo) {
+          case 'B':
             this.isSubSection = false;
             this.isSection = false;
-          }
-          break;
-        case 'A': {
-          this.slidesPer = 1;
-          this.loop = true;
-          this.speed = 1000;
-          this.brakePoints = {
-            640: {
-              slidesPerView: 1,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-          };
-          this.width = "80%";
-          this.height = "auto";
-          this.imgWidth = "80%";
-          this.imgHeight = "300px";
-          this.mainUrl = '/';
-          this.destinyUrl = '/';
-          this.autoplay = {
-            delay: 3000,
-            disableOnInteraction: true,
-            pauseOnMouseEnter: true
-          }
-          break;
-        }
-        case 'C': {
-          this.slidesPer = 1;
-          this.loop = true;
-          this.speed = 1000;
-          this.brakePoints = {
-            640: {
-              slidesPerView: 1,
-            },
-            1024: {
-              slidesPerView: 1,
-            },
-          };
-          this.width = "100%";
-          this.height = "auto";
-          this.imgWidth = "100%";
-          this.imgHeight = "500px";
-          this.mainUrl = '/';
-          this.destinyUrl = '/';
-          this.autoplay = {
-            delay: 3000,
-            disableOnInteraction: true,
-            pauseOnMouseEnter: true
-          };
-          this.categoria.sections.forEach(item => {
-            item.description = this.sanitizer.bypassSecurityTrustHtml(item.description);
-          });
-          break;
-        }
-        case 'D': {
-          this.slidesPer = 1;
-          this.loop = true;
-          this.speed = 1000;
-          this.brakePoints = {
-            640: {
-              slidesPerView: 1,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-          };
-          this.width = "100%";
-          this.height = "auto";
-          this.imgWidth = "100%";
-          this.imgHeight = "300px";
-          this.mainUrl = '/';
-          this.destinyUrl = '/';
-          this.autoplay = {
-            delay: 3000,
-            disableOnInteraction: true,
-            pauseOnMouseEnter: true
-          }
+            this.safeDescription;
+            this.slidesPer = 3;
+            this.loop = true;
+            this.speed = 1000;
+            this.brakePoints = {
+              640: {
+                slidesPerView: 1,
+              },
+              1024: {
+                slidesPerView: 2,
+              },
+            };
+            this.width = "100%";
+            this.height = "auto";
+            this.imgWidth = "90%";
+            this.imgHeight = "300px";
+            this.mainUrl = '/';
+            this.destinyUrl = '/';
+            this.autoplay = {
+              delay: 3000,
+              disableOnInteraction: true,
+              pauseOnMouseEnter: true
+            }
 
-          break;
+
+            break;
+          case 'A': {
+            this.slidesPer = 1;
+            this.loop = true;
+            this.speed = 1000;
+            this.brakePoints = {
+              640: {
+                slidesPerView: 1,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            };
+            this.width = "80%";
+            this.height = "auto";
+            this.imgWidth = "80%";
+            this.imgHeight = "300px";
+            this.mainUrl = '/';
+            this.destinyUrl = '/';
+            this.autoplay = {
+              delay: 3000,
+              disableOnInteraction: true,
+              pauseOnMouseEnter: true
+            }
+            break;
+          }
+          case 'C': {
+            this.slidesPer = 1;
+            this.loop = true;
+            this.speed = 1000;
+            this.brakePoints = {
+              640: {
+                slidesPerView: 1,
+              },
+              1024: {
+                slidesPerView: 1,
+              },
+            };
+            this.width = "100%";
+            this.height = "auto";
+            this.imgWidth = "100%";
+            this.imgHeight = "500px";
+            this.mainUrl = '/';
+            this.destinyUrl = '/';
+            this.autoplay = {
+              delay: 3000,
+              disableOnInteraction: true,
+              pauseOnMouseEnter: true
+            };
+            this.categoria.sections.forEach(item => {
+              item.description = this.sanitizer.bypassSecurityTrustHtml(item.description);
+            });
+            break;
+          }
+          case 'D': {
+            this.slidesPer = 1;
+            this.loop = true;
+            this.speed = 1000;
+            this.brakePoints = {
+              640: {
+                slidesPerView: 1,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            };
+            this.width = "100%";
+            this.height = "auto";
+            this.imgWidth = "100%";
+            this.imgHeight = "300px";
+            this.mainUrl = '/';
+            this.destinyUrl = '/';
+            this.autoplay = {
+              delay: 3000,
+              disableOnInteraction: true,
+              pauseOnMouseEnter: true
+            }
+
+            break;
+          }
         }
       }
+    });
 
-    })
   }
 }

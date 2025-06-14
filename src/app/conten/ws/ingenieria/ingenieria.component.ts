@@ -7,6 +7,7 @@ import { register } from 'swiper/element/bundle';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ContenService } from '../../conten.service';
+import { Section } from '../../models/seccion';
 // register Swiper custom elements
 register();
 @Component({
@@ -34,7 +35,7 @@ export class IngenieriaComponent {
       ]
     }
   ]
-  Secciones
+  secciones: Section[];
 
   //CAROUSEL//
   slidesPer: number = 1;
@@ -63,7 +64,7 @@ export class IngenieriaComponent {
   constructor(private sanitizer: DomSanitizer,
     private contenService: ContenService) {
     this.contenService.obtenerCategoria("diseno-e-ingenieria").subscribe((categoria) => {
-      this.Secciones= categoria.sections;
+      this.secciones= categoria.sections;
     });
   }
 
