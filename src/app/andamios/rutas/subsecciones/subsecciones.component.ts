@@ -6,6 +6,7 @@ import { AndamiosService } from '../../andamios.service';
 import { Seccion } from '../../models/seccion';
 import { fadeInAnimation } from '../../../fadeIn';
 import { SpinnerComponent } from '../../../spinner/spinner.component';
+import Swal from 'sweetalert2';
 
 const PDF_PREFIX = '-DOC.pdf';
 
@@ -19,8 +20,8 @@ const PDF_PREFIX = '-DOC.pdf';
 })
 export class SubseccionesComponent {
 
-  seccion: Seccion = new Seccion();
-  wip: boolean = false;
+  public seccion: Seccion = new Seccion();
+  public wip: boolean = false;
 
   constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer,
     private andamiosService: AndamiosService, private petitionService: PetitionsService) { }
@@ -34,12 +35,11 @@ export class SubseccionesComponent {
    * @description Inicializa la seccion busca si es una seccion o subseccion y obtiene la informacion
    * @returns {void}
    */
-  initSection(): void {
+  public initSection(): void {
     this.wip = true;
     this.route.paramMap.subscribe(params => {
       const name = params.get('name');
       this.getSubseccion(name);
-      this.wip = false;
     });
   }
 
@@ -48,11 +48,21 @@ export class SubseccionesComponent {
    * @param {string} name - Nombre de la subseccion
    * @returns {void}
    */
-  getSubseccion(name: string): void {
+  public getSubseccion(name: string): void {
     this.andamiosService.obtenerSubseccion(name).subscribe((data) => {
       this.seccion = data;
       this.wip = false;
-    });
+    }, error => {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo cargar la subsección',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        this.wip = false;
+      });
+    }
+  );
   }
 
   /**
@@ -60,11 +70,15 @@ export class SubseccionesComponent {
    * @param {string} data - Cadena de texto en base64 que cointiene un pdf
    * @returns {void}
    */
-  downloadPdf(data: string): void {
+  public downloadPdf(data: string): void {
     this.petitionService.readyToDownload(data, this.seccion.nombre + PDF_PREFIX);
   }
 
-  get defaultImage(): string | undefined {
+  /**
+   * @description Obtiene la imagen por defecto de la seccion
+   * @return {string | undefined} - Retorna la primera imagen de la seccion o undefined si no hay imagenes
+   */
+  public get defaultImage(): string | undefined {
     return this.seccion?.images?.length ? this.seccion.images[0]?.file : undefined;
   }
 }

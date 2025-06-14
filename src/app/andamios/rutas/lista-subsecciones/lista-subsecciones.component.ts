@@ -4,6 +4,7 @@ import { AndamiosService } from '../../andamios.service';
 import { SpinnerComponent } from '../../../spinner/spinner.component';
 import { Seccion } from '../../models/seccion';
 import _ from 'lodash';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-subsecciones',
@@ -14,9 +15,9 @@ import _ from 'lodash';
 })
 export class ListaSubseccionesComponent {
 
-  wip: boolean = false;
-  subsecciones: Seccion[] = [];
-  title: string = '';
+  public wip: boolean = false;
+  public subsecciones: Seccion[] = [];
+  public title: string = '';
 
   constructor(private route: ActivatedRoute, private andamiosService: AndamiosService) { }
 
@@ -25,19 +26,38 @@ export class ListaSubseccionesComponent {
     this.selectSection();
   }
 
-  selectSection() {
+  public selectSection(): void {
     this.route.paramMap.subscribe(params => {
       const name = params.get('name');
       this.title = _.capitalize(name);
       this.getSubsecciones(name);
       this.wip = false;
+    }, error => {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo cargar la sección',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        this.wip = false;
+      });
     });
   }
 
-  getSubsecciones(subseccion) {
+  public getSubsecciones(subseccion: string): void {
     this.andamiosService.obtenerSubseccionPorSeccion(subseccion).subscribe((data) => {
       this.subsecciones = data;
-      this.wip = false
-    });
+      this.wip = false;
+    }, error => {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo cargar las subsecciones',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        this.wip = false;
+      });
+    }
+  );
   }
 }
