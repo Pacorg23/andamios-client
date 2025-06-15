@@ -11,6 +11,7 @@ import { register } from 'swiper/element/bundle';
 import { PetitionsService } from '../../../petitions.service';
 import { MobileService } from '../../../mobile.service';
 import { Category } from '../../models/category';
+import { Section } from '../../models/seccion';
 // register Swiper custom elements
 register();
 
@@ -33,6 +34,7 @@ export class ManufcturaComponent {
 
   //CATEGORIA//
   public categoria: Category;
+  public seccion: Section;
   // categoria = {
   //   id: 1,
   //   name: 'Manufactura',
@@ -90,18 +92,18 @@ export class ManufcturaComponent {
   ];
 
   //NO USAR EJEMPLO DE SECCION//
-  seccion = {
-    id: 2,
-    name: 'Corte Laser Placa y Lamina',
-    url: 'corte-laser-placa-y-lamina',
-    subSecciones: [
-      { id: 1, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa1.jpg' },
-      { id: 2, name: 'Item 2', img: 'assets/imagenes/manufactura/CortePlaca/placa2.jpg' },
-      { id: 3, name: 'Item 3', img: 'assets/imagenes/manufactura/CortePlaca/placa3.jpg' },
-      { id: 4, name: 'Item 4', img: 'assets/imagenes/manufactura/CortePlaca/placa4.jpg' },
-      { id: 5, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa5.jpg' }
-    ]
-  }
+  // seccion = {
+  //   id: 2,
+  //   name: 'Corte Laser Placa y Lamina',
+  //   url: 'corte-laser-placa-y-lamina',
+  //   subSecciones: [
+  //     { id: 1, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa1.jpg' },
+  //     { id: 2, name: 'Item 2', img: 'assets/imagenes/manufactura/CortePlaca/placa2.jpg' },
+  //     { id: 3, name: 'Item 3', img: 'assets/imagenes/manufactura/CortePlaca/placa3.jpg' },
+  //     { id: 4, name: 'Item 4', img: 'assets/imagenes/manufactura/CortePlaca/placa4.jpg' },
+  //     { id: 5, name: 'MEDICIÓN DE RACKS POR MEDIO DE SCANNER', img: 'assets/imagenes/manufactura/CortePlaca/placa5.jpg' }
+  //   ]
+  // }
 
   //SUBSECCIONES EJEMPLO DE SUBSECCION//
   subSeccion = {
@@ -328,7 +330,7 @@ export class ManufcturaComponent {
         this.isSection = false;
       } else if (currentRoute.includes(MANUFACTURA_SECTION_ROUTE) && !_.isEmpty(title)) {
         this.contenService.obtenerSeccionConten(title).subscribe((seccionMain)=>{
-          this.seccionMain = seccionMain
+          this.seccion = seccionMain[0]
         });
         this.isSection = true;
         this.isSubSection = false;

@@ -18,5 +18,7 @@ export const routes: Routes = [
             { path: 'productos', component: ProductosComponent },
             { path: 'nuestras-certificaciones', component: CertificacionesComponent },
             { path: 'general/:url', component: GeneralComponent },
+            { path: 'general/seccion/:url', component: GeneralComponent },
+            { path: 'general/subseccion/:url', component: GeneralComponent },
         ]
     }];
