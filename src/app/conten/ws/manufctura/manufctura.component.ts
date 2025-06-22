@@ -320,7 +320,6 @@ export class ManufcturaComponent {
       this.isSubSection = false;
       const title = params.get('name');
       const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
-
       if (currentRoute.includes(MANUFACTURA_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
         this.contenService.obtenerSubSeccionConten(title).subscribe((subseccionMain)=>{
           this.subseccionMain = subseccionMain[0]

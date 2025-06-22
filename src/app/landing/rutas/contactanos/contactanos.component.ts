@@ -40,12 +40,13 @@ export class ContactanosComponent {
     this.seo.setTitle('Contactanos')
     this.seo.setKeywords(['Formulario', 'Contacto', 'Ayuda', 'Contactar andamios Atlas', ''
     ])
+    console.log('ContactanosComponent constructor');
 
     this.formulario = this.fb.group({
       nombre: ['', [Validators.required]],
       empresa: ['', Validators.required],
-      telefono_fijo: ['', [Validators.pattern('[0-9]{10}'), Validators.required, Validators.minLength(12)]],
-      telefono_celular: ['', ],
+      telefono_fijo: ['', [Validators.pattern('[0-9]{10}'), Validators.required, Validators.minLength(10)]],
+      telefono_celular: ['',],
       email: ['', [Validators.required, Validators.email]],
       localidad: ['', Validators.required],
       localidad_extranjera: ['', Validators.required],
