@@ -12,6 +12,7 @@ import { PetitionsService } from '../../../petitions.service';
 import { MobileService } from '../../../mobile.service';
 import { Category } from '../../models/category';
 import { Section } from '../../models/seccion';
+import { LoadingContenComponent } from '../../html/loading-conten/loading-conten.component';
 // register Swiper custom elements
 register();
 
@@ -22,7 +23,7 @@ const MANUFACTURA_SUBSECTION_ROUTE = 'manufactura/subseccion';
 @Component({
   selector: 'app-manufctura',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, LoadingContenComponent],
   templateUrl: './manufctura.component.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrl: './manufctura.component.css',
@@ -35,6 +36,7 @@ export class ManufcturaComponent {
   //CATEGORIA//
   public categoria: Category;
   public seccion: Section;
+  public wip: boolean = false;
   // categoria = {
   //   id: 1,
   //   name: 'Manufactura',
@@ -118,9 +120,6 @@ export class ManufcturaComponent {
     description: "Nuestras máquinas de corte láser para tubo nos permiten ofrecer cortes con una gran precisión, cortar geometrías complejas en tubos redondos, cuadrado, rectangular y ovales con tiempos de proceso muy rápidos, hasta 5” de diámetro. <br> • Podemos crear cualquier característica de corte o geometría en los tubos. <br> • Tubos redondos, cuadrado, rectangular y ovales. <br> • Agujeros, ranuras, chaflanes, filetes. <br> • Corte pliegue para posteriormente doblar un tubo. <br> • Diferentes tipos de materiales (acero al carbón, acero inoxidable, acero galvanizado, aluminio, cobre, latón). <br> • Fabricación de piezas que tienen diferentes procesos en una sola máquina. <br> • Mejor precisión. <br> • Mejor calidad de corte. <br> • Mejores tiempos de proceso."
   };
 
-  //TODO Aqui deben de ir los datos de las subsecciones, sonn 3 por seccion, usa la descripcion del word
-  //TODO estructura de las img en assets -> assets/imagenes/manufactura/subsecciones/nombre/numero.jpg
-  //TODO Digamos que esta es la tabla de subsecciones, y tu vas a buscar por el nombre de la subseccion
   subseccionesTEMP = [
     {
       id: 1,
@@ -315,6 +314,7 @@ export class ManufcturaComponent {
     private contenService: ContenService
 
   ) {
+    this.wip = true;
     this.route.paramMap.subscribe(params => {
       this.isSection = false;
       this.isSubSection = false;
@@ -323,20 +323,22 @@ export class ManufcturaComponent {
 
       if (currentRoute.includes(MANUFACTURA_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
         this.contenService.obtenerSubSeccionConten(title).subscribe((subseccionMain)=>{
+          this.isSubSection = true;
+          this.isSection = false;
           this.subseccionMain = subseccionMain[0]
           this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.subseccionMain.description);
+          this.wip = false;
         });
-        this.isSubSection = true;
-        this.isSection = false;
       } else if (currentRoute.includes(MANUFACTURA_SECTION_ROUTE) && !_.isEmpty(title)) {
         this.contenService.obtenerSeccionConten(title).subscribe((seccionMain)=>{
-          this.seccion = seccionMain[0]
+          this.isSection = true;
+          this.isSubSection = false;
+          this.seccion = seccionMain[0];
+          this.wip = false;
         });
-        this.isSection = true;
-        this.isSubSection = false;
       } else {
         this.contenService.obtenerCategoria(MANUFACTURA_CATEGORY).subscribe((categoria)=>{
-          this.categoria = categoria
+          this.categoria = categoria;
         });
         this.isSubSection = false;
         this.isSection = false;
@@ -388,6 +390,14 @@ export class ManufcturaComponent {
     if (carousel?.swiper) {
       carousel.swiper.slidePrev(); // Mueve al slide anterior
     }
+  }
+
+  /**
+   * @description Método que se ejecuta cuando una imagen se carga correctamente.
+   * @returns void
+   */
+  public onImageLoad(): void {
+    this.wip = false;
   }
 
 }

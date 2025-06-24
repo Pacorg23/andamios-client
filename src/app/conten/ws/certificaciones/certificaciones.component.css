@@ -16,6 +16,10 @@
   position: relative;
 }
 
+.img-container {
+  cursor: pointer;
+}
+
 /* CAROUSEL */
 
 .carousel-container{

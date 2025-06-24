@@ -9,7 +9,7 @@ import _ from 'lodash';
 import { register } from 'swiper/element/bundle';
 import { PetitionsService } from '../../../petitions.service';
 import { MobileService } from '../../../mobile.service';
-import { LandingService } from '../../conten.service';
+import { ContenService } from '../../conten.service';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 import { Category } from '../../models/category';
 import { ThisReceiver } from '@angular/compiler';
@@ -38,7 +38,7 @@ const GENERAL_SUBSECTION_ROUTE = 'general/subseccion';
   animations: [fadeInAnimation]
 })
 export class GeneralComponent {
-  categoria: Category;
+  categoria: Category; // public categoria: Category;
   seccion: Section;
   subseccion: Section;
   comp: { url: string, titulo: string, tipo: string }
@@ -238,7 +238,7 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
     private petitionsService: PetitionsService,
     private mobile: MobileService,
     private route: ActivatedRoute,
-    private landingService: LandingService
+    private landingService: ContenService
   ) {
     this.activatedRoute.paramMap.subscribe(params => {
       // Inicializa datos de componente con valores predeterminados
@@ -249,8 +249,8 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
       }
 
       const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
-      const currentRouteSplit = currentRoute.split('/');     
-      const title = currentRoute.split('/')[currentRouteSplit.length-1]; 
+      const currentRouteSplit = currentRoute.split('/');
+      const title = currentRoute.split('/')[currentRouteSplit.length-1];
       if (currentRoute.includes(GENERAL_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
         this.landingService.obtenerSubSeccionConten(title).subscribe((subseccionMain) => {
 

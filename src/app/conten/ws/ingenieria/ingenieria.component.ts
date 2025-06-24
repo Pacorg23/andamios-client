@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { fadeInAnimation } from '../../../fadeIn';
 import { DomSanitizer } from '@angular/platform-browser';
 import _ from 'lodash';
@@ -8,34 +8,28 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ContenService } from '../../conten.service';
 import { Section } from '../../models/seccion';
+import { Category } from '../../models/category';
+import Swal from 'sweetalert2';
+import { LoadingContenComponent } from '../../html/loading-conten/loading-conten.component';
 // register Swiper custom elements
 register();
+
+const CATEGORY_NAME = "diseno-e-ingenieria";
+
 @Component({
   selector: 'app-ingenieria',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, LoadingContenComponent],
   templateUrl: './ingenieria.component.html',
   styleUrl: './ingenieria.component.css',
   animations: [fadeInAnimation],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class IngenieriaComponent {
+export class IngenieriaComponent implements OnInit {
 
-  designs = [
-    {
-      id: 1, description: this.sanitizer.bypassSecurityTrustHtml(`
-      Utilizando nuestra experiencia en el diseño de propuestas hechas a la medida para cada necesidad.<br>
-      <br>
-      Ofrecemos una amplia variedad de diseños, desarrollados a partir de programas especializados compatibles con cualquier software que nuestros clientes utilicen.<br>
-      Cada proyecto es diseñado por un equipo con amplia experiencia, conocimiento y creatividad, utilizando nuestros equipos de alta tecnología para su desarrollo.
-    `), imgs: [
-        { id: 1, img: 'assets/imagenes/ingenieria/ing1.jpg' },
-        { id: 2, img: 'assets/imagenes/ingenieria/ing2.jpg' },
-        { id: 3, img: 'assets/imagenes/ingenieria/ing3.jpg' }
-      ]
-    }
-  ]
-  secciones: Section[];
+  public categoria: Category;
+  public secciones: Section[];
+  public wip: boolean = false;
 
   //CAROUSEL//
   slidesPer: number = 1;
@@ -62,9 +56,30 @@ export class IngenieriaComponent {
   }
 
   constructor(private sanitizer: DomSanitizer,
-    private contenService: ContenService) {
-    this.contenService.obtenerCategoria("diseno-e-ingenieria").subscribe((categoria) => {
-      this.secciones= categoria.sections;
+    private contenService: ContenService) { }
+
+  ngOnInit() {
+    this.wip = true;
+    this.getItems();
+  }
+
+  /**
+   * @description Obtiene la categoría de Ingeniería y sus secciones.
+   * @param {void}
+   * @returns {void}
+   */
+  public getItems(): void {
+    this.contenService.obtenerCategoria(CATEGORY_NAME).subscribe((categoria) => {
+      this.secciones = categoria.sections;
+      this.categoria = categoria;
+      this.wip = false;
+    }, (error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo cargar la sección de Ingeniería. Inténtalo más tarde.',
+      });
+      this.wip = false;
     });
   }
 
