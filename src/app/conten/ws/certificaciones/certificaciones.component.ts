@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { fadeInAnimation } from '../../../fadeIn';
 // import function to register Swiper custom elements
 import { register } from 'swiper/element/bundle';
@@ -6,38 +6,31 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ContenService } from '../../conten.service';
+import { Section } from '../../models/seccion';
+import { Category } from '../../models/category';
+import { PetitionsService } from '../../../petitions.service';
+import { LoadingContenComponent } from '../../html/loading-conten/loading-conten.component';
+import Swal from 'sweetalert2';
 // register Swiper custom elements
 register();
+
+const CATEGORY_NAME = "nuestras-certificaciones";
 
 @Component({
   selector: 'app-certificaciones',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, LoadingContenComponent],
   templateUrl: './certificaciones.component.html',
   styleUrl: './certificaciones.component.css',
   animations: [fadeInAnimation],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CertificacionesComponent {
+export class CertificacionesComponent implements OnInit {
 
   //TODO implement doc value to download pdf on image click
-  cerificaciones: { id: number, description: any, img: string }[] = [
-    {
-      id: 1, description: `
-Contamos con el Certificado otorgado por el Instituto Mexicano de Normalización y Certificación A.C.<br>
-por implementar y mantener un sistema de Gestión de la Calidad de conformidad con<br>
-NMX-CC-9001-IMNC-2015 ISO 9001:2015
-`, img: 'assets/imagenes/certificaciones/certi1.png'
-    },
-    {
-      id: 2, description: `
-Contamos con el Certificado otorgado por el Instituto Mexicano de Normalización y Certificación A.C.<br>
-por implementar y mantener un sistema de Gestión de la Calidad de conformidad con<br>
-NMX-CC-9001-IMNC-2015 ISO 9001:2015
-`, img: 'assets/imagenes/certificaciones/certi2.png'
-    }
-  ]
-  Secciones
+  public categoria: Category;
+  public certificaciones: Section[] = [];
+  public wip: boolean;
 
   //CAROUSEL//
   slidesPer: number = 1;
@@ -64,13 +57,32 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
   }
 
   constructor(private sanitizer: DomSanitizer,
-    private contenService: ContenService
-  ) {
-    this.cerificaciones.forEach(certificacion => {
-      certificacion.description = this.sanitizer.bypassSecurityTrustHtml(certificacion.description);
-    });
-    this.contenService.obtenerCategoria("nuestras-certificaciones").subscribe((categoria) => {
-      this.Secciones= categoria.sections;
+    private contenService: ContenService,
+    private petitionService: PetitionsService
+  ) { }
+
+  public ngOnInit(): void {
+    this.wip = true;
+    this.getCertificaciones();
+  }
+
+  /**
+   * @description Obtiene las certificaciones de la categoria "nuestras-certificaciones"
+   * @returns {void}
+   */
+  public getCertificaciones(): void {
+    this.contenService.obtenerCategoria(CATEGORY_NAME).subscribe((categoria) => {
+      this.categoria = categoria;
+      this.certificaciones = categoria.sections;
+      this.wip = false;
+    }, (error) => {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudieron cargar las certificaciones. Inténtalo más tarde.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      this.wip = false;
     });
   }
 
@@ -88,4 +100,13 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
     }
   }
 
+  /**
+   * @description Prepara la descarga de un archivo
+   * @param {string} fileString - Cadena de texto que representa el archivo en
+   * @param {string} fileName - Nombre del archivo a descargar
+   * @returns {void}
+   */
+  public toDownload(fileString: string, fileName: string): void {
+    this.petitionService.readyToDownload(fileString, fileName);
+  }
 }

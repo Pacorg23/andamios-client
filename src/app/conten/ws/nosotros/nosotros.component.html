@@ -5,9 +5,9 @@
                 @for (slide of safeSlides; track slide ; let isFirst = $first) {
                 <div class="carousel-item" [class.active]="isFirst">
                     @if(!isMobile && !isTablet) {
-                    <img [src]="slide.file" class="d-block w-100" alt="...">
+                    <img [src]="slide.file" (load)="onImagesLoad()" class="d-block w-100" alt="...">
                     }@else {
-                    <img [src]="slide.fileResponsive" class="d-block w-100" alt="...">
+                    <img [src]="slide.fileResponsive" (load)="onImagesLoad()" class="d-block w-100" alt="...">
                     }
                     @if(slide.needsAction){
                     <a href="javascript:void(0)" (click)="goToLink(slide.action)">CONOCE MÁS</a>
@@ -30,7 +30,7 @@
 
     <section class="summary">
         <div class="left">
-            <img src="assets/imagenes/conten-nosotros-50.png" alt="">
+            <img src="assets/conten/conten-nosotros-50.png" alt="">
             <a href="javascript:void(0)" (click)="scrollToElement('text')">Sigue leyendo</a>
         </div>
         <div class="right">

@@ -1,6 +1,6 @@
 <div class="contenedor" [@fadeIn]>
   <div class="banner">
-    <img src="assets/imagenes/manufactura/ManufacturaBanner.png" alt="" class="banner-img">
+    <img [src]="categoria?.img" (load)="onImageLoad()" alt="" class="banner-img">
   </div>
   @if(isSubSection){
   <div class="subseccion">
@@ -87,13 +87,13 @@
       <div class="carousel-container">
         <!-- CAROUSEL ELEMENT -->
         <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
-          [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
+          [ngStyle]="{ width: width }" id="carousel-{{seccion?.id}}">
           <!-- SLIDES -->
           @for(slide of categoria?.imgs; track slide){
           <swiper-slide class="slide-item">
             <div class="element" [ngStyle]="{ height: height }">
               <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
-                <img [src]="slide.data" alt="slide.img" class="img">
+                <img [src]="slide?.data" alt="slide.img" class="img">
               </div>
               <!-- <div class="content">
                 <p>{{slide.name}}</p>
@@ -115,23 +115,23 @@
       </div>
       <div class="img-carrousel">
         <div class="prev">
-          <button (click)="prevView(seccion.id)">
+          <button (click)="prevView(seccion?.id)">
             <mat-icon>keyboard_double_arrow_left</mat-icon>
           </button>
         </div>
         <div class="carousel-container">
           <!-- CAROUSEL ELEMENT -->
           <swiper-container autoplay="true" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
-            [ngStyle]="{ width: width }" id="carousel-{{seccion.id}}">
+            [ngStyle]="{ width: width }" id="carousel-{{seccion?.id}}">
             <!-- SLIDES -->
             @for(slide of seccion.subSecciones; track slide){
             <swiper-slide class="slide-item">
-              <div class="element" [ngStyle]="{ height: height }" (click)="goTo(slide.title)">
+              <div class="element" [ngStyle]="{ height: height }" (click)="goTo(slide?.title)">
                 <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
-                  <img [src]="slide.img" alt="slide.img" class="img">
+                  <img [src]="slide?.img" alt="slide.img" class="img">
                 </div>
                 <div class="content">
-                  <p>{{slide.title}}</p>
+                  <p>{{slide?.title}}</p>
                 </div>
               </div>
             </swiper-slide>
@@ -141,7 +141,7 @@
           <!-- END CAROUSEL ELEMENT -->
         </div>
         <div class="next">
-          <button (click)="nextView(seccion.id)">
+          <button (click)="nextView(seccion?.id)">
             <mat-icon>keyboard_double_arrow_right</mat-icon>
           </button>
         </div>
@@ -152,3 +152,7 @@
   </div>
   }
 </div>
+
+@if (wip) {
+  <app-loading-conten></app-loading-conten>
+}

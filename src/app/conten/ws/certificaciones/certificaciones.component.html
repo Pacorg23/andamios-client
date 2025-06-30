@@ -1,10 +1,10 @@
 <div class="contenedor" [@fadeIn]>
 
   <div class="banner">
-    <img src="assets/imagenes/certificaciones.png" alt="">
+    <img [src]="categoria?.img" alt="">
   </div>
 
-  <div class="contenido">
+  <div class="contenido" *ngIf="certificaciones.length > 0">
     <div class="prev" >
       <button (click)="prevView()">
         <mat-icon id="prev">keyboard_double_arrow_left</mat-icon>
@@ -15,15 +15,14 @@
       <swiper-container autoplay="false" [loop]="loop" speed="1000" [slidesPerView]="slidesPer"
         [ngStyle]="{ width: width }" id="carousel">
         <!-- SLIDES -->
-        @for(slide of Secciones; track slide){
+        @for(slide of certificaciones; track slide){
         <swiper-slide>
           <div class="element" [ngStyle]="{ height: height }">
             <div class="description-container">
-              <div [innerHTML]="slide.description"></div>
+              <div [innerHTML]="slide?.description"></div>
             </div>
-            <!--TODO Implement (click)=download(slide.doc)-->
             <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
-              <img [src]="slide.img" alt="slide.img" class="img">
+              <img [src]="slide.img" alt="slide.img" class="img" (click)="toDownload(slide.file, slide.title)">
             </div>
           </div>
         </swiper-slide>
@@ -39,3 +38,7 @@
     </div>
   </div>
 </div>
+
+@if (wip) {
+  <app-loading-conten></app-loading-conten>
+}

@@ -1,10 +1,10 @@
 <div class="contenedor" [@fadeIn]>
   <div class="banner">
-    <img src="assets/imagenes/Diseño_e_ingenieria_1.png" alt="">
+    <img [src]="categoria?.img" alt="">
   </div>
 
   <div class="contenido">
-    @for (design of Secciones; track design) {
+    @for (design of secciones; track design) {
     <div class="item">
       <div class="img-carrousel">
         <div class="prev">
@@ -42,3 +42,7 @@
   </div>
 
 </div>
+
+@if (wip) {
+  <app-loading-conten></app-loading-conten>
+}

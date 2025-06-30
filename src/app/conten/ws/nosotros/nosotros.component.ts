@@ -9,7 +9,6 @@ import { LoadingContenComponent } from '../../html/loading-conten/loading-conten
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import _ from 'lodash';
 import { Sucursal } from '../../../andamios/models/sucursal';
-import { NgOptimizedImage } from '@angular/common';
 
 interface CarrouselSafe {
   file: SafeUrl;
@@ -27,7 +26,7 @@ interface PlantasSafe {
 @Component({
   selector: 'app-nosotros',
   standalone: true,
-  imports: [LoadingContenComponent, NgOptimizedImage],
+  imports: [LoadingContenComponent, LoadingContenComponent],
   templateUrl: './nosotros.component.html',
   styleUrl: './nosotros.component.css',
   animations: [fadeAnimation, fadeInAnimation]
@@ -41,12 +40,14 @@ export class NosotrosComponent {
   public safeSlides: CarrouselSafe[] = [];
   public plantas: Sucursal[] = [];
   public plantasSafe: PlantasSafe[] = [];
+  public totalSlides: number = 0;
+  public currentSlide: number = 0;
 
   constructor(private mobile: MobileService, private contenService: ContenService, private route: Router, private domSanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.mobileView();
     this.getCarrusel();
+    this.mobileView();
     this.getPlantas();
     this.extraTime();
   }
@@ -79,7 +80,7 @@ export class NosotrosComponent {
         needsAction: slide.needsAction,
         action: slide.action
       }));
-      this.loading = false;
+      this.totalSlides = this.safeSlides.length;
     }, (error) => {
       Swal.fire({
         icon: 'error',
@@ -138,5 +139,13 @@ export class NosotrosComponent {
    */
   public goToLink(link: string): void {
     this.route.navigate([link]);
+  }
+
+  public onImagesLoad(): void {
+    this.loading = true;
+    this.currentSlide++;
+    if (this.currentSlide === this.totalSlides) {
+      this.loading = false;
+    }
   }
 }
