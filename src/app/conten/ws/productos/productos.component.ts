@@ -8,6 +8,7 @@ import { ContenService } from '../../conten.service';
 import { Section } from '../../models/seccion';
 import { LoadingContenComponent } from '../../html/loading-conten/loading-conten.component';
 import Swal from 'sweetalert2';
+import { Category } from '../../models/category';
 register();
 
 const CATEGORY_NAME = "productos";
@@ -23,6 +24,7 @@ const CATEGORY_NAME = "productos";
 })
 export class ProductosComponent {
 
+  public categoria: Category;
   public secciones: Section[] = [];
   public loading: boolean;
 
@@ -63,6 +65,7 @@ export class ProductosComponent {
    */
   public getSections(): void {
     this.contenService.obtenerCategoria(CATEGORY_NAME).subscribe((categoria) => {
+      this.categoria = categoria;
       this.secciones = categoria.sections;
       this.loading = false;
     }, (error) => {

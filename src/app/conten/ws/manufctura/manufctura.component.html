@@ -1,6 +1,6 @@
 <div class="contenedor" [@fadeIn]>
   <div class="banner">
-    <img src="assets/imagenes/manufactura/ManufacturaBanner.png" alt="" class="banner-img">
+    <img [src]="categoria?.img" (load)="onImageLoad()" alt="" class="banner-img">
   </div>
   @if(isSubSection){
   <div class="subseccion">
@@ -93,7 +93,7 @@
           <swiper-slide class="slide-item">
             <div class="element" [ngStyle]="{ height: height }">
               <div class="img-container" [ngStyle]="{ height: imgHeight, width: imgWidth }">
-                <img [src]="slide.data" alt="slide.img" class="img">
+                <img [src]="slide?.data" alt="slide.img" class="img">
               </div>
               <!-- <div class="content">
                 <p>{{slide.name}}</p>
@@ -153,3 +153,7 @@
   </div>
   }
 </div>
+
+@if (wip) {
+  <app-loading-conten></app-loading-conten>
+}

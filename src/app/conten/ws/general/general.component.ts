@@ -38,7 +38,7 @@ const GENERAL_SUBSECTION_ROUTE = 'general/subseccion';
   animations: [fadeInAnimation]
 })
 export class GeneralComponent {
-  categoria: Category;
+  categoria: Category; // public categoria: Category;
   seccion: Section;
   subseccion: Section;
   comp: { url: string, titulo: string, tipo: string }
@@ -249,8 +249,8 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
       }
 
       const currentRoute = this.route.snapshot.url.map(segment => segment.path).join('/');
-      const currentRouteSplit = currentRoute.split('/');     
-      const title = currentRoute.split('/')[currentRouteSplit.length-1]; 
+      const currentRouteSplit = currentRoute.split('/');
+      const title = currentRoute.split('/')[currentRouteSplit.length-1];
       if (currentRoute.includes(GENERAL_SUBSECTION_ROUTE) && !_.isEmpty(title)) {
         this.landingService.obtenerSubSeccionConten(title).subscribe((subseccionMain) => {
 

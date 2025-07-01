@@ -1,6 +1,6 @@
 <div class="contenedor" [@fadeIn]>
   <div class="banner">
-    <img src="assets/imagenes/Diseño_e_ingenieria_1.png" alt="">
+    <img [src]="categoria?.img" alt="">
   </div>
 
   <div class="contenido">
@@ -42,3 +42,7 @@
   </div>
 
 </div>
+
+@if (wip) {
+  <app-loading-conten></app-loading-conten>
+}
