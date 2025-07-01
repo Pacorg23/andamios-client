@@ -280,6 +280,7 @@ NMX-CC-9001-IMNC-2015 ISO 9001:2015
         this.isSection = true;
         this.isSubSection = false;
       } else {
+        console.log('GeneralComponent constructor');
         this.landingService.obtenerCategoria(title).subscribe((categoria) => {
           this.categoria = categoria
           this.comp.tipo = categoria.tipo

@@ -18,7 +18,7 @@ export const routes : Routes = [
     { path: 'unete-al-equipo', component: JoinComponent },
     { path: 'politicas-privacidad', component: PrivacidadComponent },
     { path: 'aviso-anticorrupcion', component: AnticorrupcionComponent },
-    { path: 'contactanos/:division?', component: ContactanosComponent }
+    { path: 'contactanos', component: ContactanosComponent }
   ]}
 ]
 
